@@ -1,0 +1,59 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/nextblog/node_modules/
+/nextblog/.pnp
+/nextblog/.pnp.js
+
+# testing
+/nextblog/coverage/
+
+# next.js
+/nextblog/.next/
+/nextblog/out/
+
+# production
+/nextblog/build
+
+# misc
+/nextblog/.DS_Store
+/nextblog/*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+/nextblog/.env*.local
+
+# vercel
+/nextblog/.vercel
+
+# typescript
+/nextblog/*.tsbuildinfo
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/nextblog-cms/node_modules
+/nextblog-cms/.pnp
+/nextblog-cms/.pnp.js
+
+# testing
+/nextblog-cms/coverage
+
+# production
+/nextblog-cms/build
+
+# misc
+/nextblog-cms/.DS_Store
+/nextblog-cms/.env.local
+/nextblog-cms/.env.development.local
+/nextblog-cms/.env.test.local
+/nextblog-cms/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
