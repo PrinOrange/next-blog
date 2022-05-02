@@ -5,10 +5,14 @@ import Script from 'next/script';
 export default function SocialBlock() {
 
     return (
-        <Card className="mt-4 tw-rounded-2xl tw-bg-white tw-border-blue-500">
+        <Card className="tw-border-0  tw-bg-white tw-border-blue-500">
             <Card.Body>
                 <Tabs variant="pills" defaultActiveKey="weibo" className="mb-3">
-                    <Tab tabClassName="rounded-pill" id="weibo-social-tab" eventKey="weibo" title={<span><FaWeibo className="mx-1 d-inline" />{"微博"}</span>}>
+                    <Tab tabClassName="rounded-pill"
+                        id="weibo-social-tab"
+                        eventKey="weibo"
+                        title={<span><FaWeibo className="mx-1 d-inline" />{"微博"}</span>}
+                    >
                         <iframe
                             width="100%"
                             title="微博"
@@ -18,7 +22,12 @@ export default function SocialBlock() {
                             scrolling="no"
                             src="https://widget.weibo.com/weiboshow/index.php?language=&width=0&height=470&fansRow=0&ptype=1&speed=0&skin=1&isTitle=1&noborder=3&isWeibo=1&isFans=0&uid=1738014147&verifier=e5c30ddc&dpc=1" />
                     </Tab>
-                    <Tab tabClassName="rounded-pill" id="twitter-social-tab" eventKey="twitter" title={<span><FaTwitter className="mx-1 d-inline" />{"Twitter"}</span>}>
+                    <Tab tabClassName="rounded-pill"
+                        id="twitter-social-tab"
+                        eventKey="twitter"
+                        title={<span><FaTwitter className="mx-1 d-inline" />{"Twitter"}</span>}
+                        style={{minHeight:450}}
+                    >
                         <div className="text-center fw-bold fs-7 my-2">{"注：大陆地区可能无法查看"}</div>
                         <Script src="https://platform.twitter.com/widgets.js" strategy="afterInteractive" async></Script>
                         <div className='tw-rounded-3xl'>

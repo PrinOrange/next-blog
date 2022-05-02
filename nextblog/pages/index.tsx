@@ -4,13 +4,15 @@ import Image from 'next/image'
 import { Card, SSRProvider } from 'react-bootstrap'
 import FireworkCanvas from '../components/FireworkCanvas'
 import AboutMe from '../views/AboutMe'
+import FilterCard from '../views/FilterCard'
+import Header from '../views/Header'
 import SocialBlock from '../views/SocialBlock'
 import SocialIcons from '../views/SocialIcons'
 
 const Home: NextPage = () => {
   return (
     <SSRProvider>
-      <div>
+      <div className=' tw-select-none '>
         <FireworkCanvas />
         <Head>
           <title>Next Blog</title>
@@ -19,14 +21,16 @@ const Home: NextPage = () => {
         </Head>
         <main className='min-h-screen tw-mx-auto tw-grid tw-grid-flow-col tw-grid-cols-4'>
           <div className=' tw-col-start-1 tw-col-end-2 tw-bg-white tw-px-5 tw-min-h-screen'>
-            <AboutMe />
-            <SocialIcons/>
+            <Header />
+            <SocialBlock />            
           </div>
           <div className=' tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r'>
-            02
+            <AboutMe />
+            <SocialIcons />
           </div>
-          <div className=' tw-col-start-4 tw-col-end-5 tw-px-5 '>
-            <SocialBlock />
+          <div className='tw-pt-4 tw-col-start-4 tw-col-end-5 tw-px-5 '>
+            <FilterCard />
+
           </div>
         </main>
       </div>
