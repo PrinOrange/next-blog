@@ -14,29 +14,33 @@ export default function SocialIcons() {
                 size="1.75em" />
             <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4"
                 target="_blank"
+                title='访问知乎主页'
                 href="https://www.zhihu.com/people/prinOrange"
-                rel="noreferrer"
+                rel="noreferrer noopener"
             >
                 <SiZhihu size="1.5em" />
             </a>
             <a className=" tw-cursor-pointer hover:tw-text-red-600 tw-mx-4"
                 target="_blank"
+                title='访问微博主页'
                 href="https://weibo.com/u/1738014147"
-                rel="noreferrer"
+                rel="noreferrer noopener"
             >
                 <FaWeibo size="1.5em" />
             </a>
             <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4"
                 target="_blank"
+                title='访问Twitter主页'
                 href="https://twitter.com/prinOrange_"
-                rel="noreferrer"
+                rel="noreferrer noopener"
             >
                 <FaTwitter size="1.5em" />
             </a>
             <a className=" tw-cursor-pointer hover:tw-text-gray-500 tw-mx-4"
                 target="_blank"
+                title='访问Github主页'
                 href="https://github.com/PrinOrange"
-                rel="noreferrer">
+                rel="noreferrer noopener">
                 <FaGithub size="1.5em" />
             </a>
             <Modal size="sm" centered show={modal_show} onHide={() => set_modal_show(false)} >
