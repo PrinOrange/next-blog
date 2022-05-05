@@ -1,19 +1,24 @@
+import { useRequest } from "ahooks";
 import { useState } from "react";
 import { Button, Card, CardImg, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useDocFilter } from "../hooks/useDocFilter";
 
 function FilterCard() {
     const fl = useDocFilter();
-    const [keyword_input, set_keyword_input] = useState<string>("");
-    const [value, setValue] = useState([]);
 
-    const handleChange = (val: any) => {
-        setValue(val)
-        console.log(val)
+    const [keyword_input, set_keyword_input] = useState<string>("");
+    const [tags_input, set_tags_input] = useState([]);
+
+    const handleKeywordChange = (e: any) => {
+        set_keyword_input(e.target.value);
     };
 
+    const handleTagsChange = (val: any) => {
+        set_tags_input(val);
+    }
+
     const checkLoad = () => {
-        fl.setFilter({ keyword: keyword_input.split(',') });
+        fl.setFilter({ keyword: keyword_input.split(','), tags: tags_input });
         console.log(fl.getFilter());
     }
 
@@ -24,17 +29,15 @@ function FilterCard() {
                     className="rounded-pill shadow-none"
                     placeholder="Input Keywords Here..."
                     value={keyword_input}
-                    onChange={(e) => {
-                        set_keyword_input(e.target.value);
-                    }} />
-                <ToggleButtonGroup type="checkbox" size="sm"  className=" tw-my-3"  value={value} onChange={handleChange}>
-                    <ToggleButton variant="outline-primary" className="shadow-none tw-mx-2 rounded-pill"  id="c1"  value={1}>
+                    onChange={handleKeywordChange} />
+                <ToggleButtonGroup type="checkbox" size="sm" className=" tw-my-3" value={tags_input} onChange={handleTagsChange}>
+                    <ToggleButton variant="outline-primary" className="shadow-none tw-mx-2 rounded-pill" id="c1" value={1}>
                         Option 1
                     </ToggleButton>
-                    <ToggleButton variant="outline-secondary" className="shadow-none tw-mx-2 rounded-pill"  id="c2"  value={2}>
+                    <ToggleButton variant="outline-secondary" className="shadow-none tw-mx-2 rounded-pill" id="c2" value={2}>
                         Option 1
                     </ToggleButton>
-                    <ToggleButton variant="outline-danger" className="shadow-none tw-mx-2 rounded-pill"  id="c3"  value={3}>
+                    <ToggleButton variant="outline-danger" className="shadow-none tw-mx-2 rounded-pill" id="c3" value={3}>
                         Option 1
                     </ToggleButton>
                 </ToggleButtonGroup>

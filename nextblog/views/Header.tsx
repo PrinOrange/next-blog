@@ -1,4 +1,6 @@
 import { FaPaperPlane } from 'react-icons/fa';
+import SocialBlock from './SocialBlock';
+import SocialIcons from './SocialIcons';
 export default function Header() {
     return (
         <div className=" tw-font-bold tw-text-lg tw-py-6 tw-text-center tw-border-b">

@@ -1,3 +1,3 @@
-export default function DocsList(){
+export default function DocsList(props:{}){
     
 }

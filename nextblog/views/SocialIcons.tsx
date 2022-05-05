@@ -8,7 +8,7 @@ import { useState } from 'react';
 export default function SocialIcons() {
     const [modal_show, set_modal_show] = useState<boolean>(false);
     return (
-        <div className=" tw-flex tw-justify-start tw-flex-wrap">
+        <div className=" tw-flex tw-justify-center tw-flex-wrap">
             <FaWeixin className=" tw-cursor-pointer hover:tw-text-green-600 tw-mx-4"
                 onClick={() => (set_modal_show(true))}
                 size="1.75em" />
