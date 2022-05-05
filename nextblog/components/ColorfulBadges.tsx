@@ -12,13 +12,9 @@ export default function ColorfulBadges(props: { stringArr?: string[] }) {
     "bg-secondary",
     "bg-success",
     "bg-danger",
+    "bg-warning  text-dark",
+    "bg-info text-dark",
   ];
-
-  const getColorIndex = (index: number): number => {
-    let _rem_num;
-    _rem_num = index % 10;
-    return _rem_num;
-  };
 
   if (props.stringArr != null)
     return (
@@ -26,7 +22,7 @@ export default function ColorfulBadges(props: { stringArr?: string[] }) {
         {props.stringArr.map((item: string, index: number) => (
           <span
             className={`badge badge-margin mx-1 my-1 rounded-pill ${
-              colors_list[getColorIndex(index)]
+              colors_list[index % 10]
             }`}
             key={`badge-${item}:${index}`}
           >

@@ -1,6 +1,6 @@
-import ColorfulBadges from "../components/ColorfulBadges";
-import { AboutMeModel } from "../model/AboutMeModel";
-import SocialIcons from "./SocialIcons";
+import ColorfulBadges from '../components/ColorfulBadges';
+import SocialIcons from './SocialIcons';
+import { AboutMeModel } from '../model/AboutMeModel';
 
 export default function AboutMe(props: AboutMeModel) {
   return (

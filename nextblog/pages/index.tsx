@@ -1,6 +1,5 @@
 import AboutMe from "../views/AboutMe";
 import axios from "axios";
-import FilterCard from "../views/FilterCard";
 import FireworkCanvas from "../components/FireworkCanvas";
 import Head from "next/head";
 import Header from "../views/Header";
@@ -10,13 +9,22 @@ import { AboutMeModel } from "../model/AboutMeModel";
 import { SSRProvider } from "react-bootstrap";
 import type { GetStaticProps } from "next";
 import { PinnedListModel } from "../model/PinnedListModel";
+import { FriendListModel } from "../model/FriendListModel";
+import Friends from "../views/Friends";
+import { OfficeInfoModel } from "../model/OfficeInfoModel";
+import OfficeInfo from "../views/OfficeInfo";
+import DocsList from "../views/DocsList";
 
 function Home({
   aboutme_data,
   pinnedList_data,
+  friendList_data,
+  officeInfo_data,
 }: {
   aboutme_data: AboutMeModel;
   pinnedList_data: PinnedListModel;
+  friendList_data: FriendListModel;
+  officeInfo_data: OfficeInfoModel;
 }) {
   return (
     <SSRProvider>
@@ -36,12 +44,16 @@ function Home({
               badges={aboutme_data.badges}
               quote={aboutme_data.quote}
             />
-            <SocialBlock />
-          </div>
-          <div className=" tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r"></div>
-          <div className="tw-pt-4 tw-col-start-4 tw-col-end-5 tw-px-5 ">
-            <FilterCard />
             <PinnedList list={pinnedList_data} />
+          </div>
+          <div className=" tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r">
+            <DocsList tags={["小说","故事"]}  list={[]}/>
+          </div>
+          <div className="tw-pt-4 tw-col-start-4 tw-col-end-5 tw-px-5 ">
+            {/* <FilterCard /> */}
+            <Friends list={friendList_data} />
+            <OfficeInfo {...officeInfo_data}/>
+            <SocialBlock />
           </div>
         </main>
       </div>
@@ -66,10 +78,36 @@ export const getStaticProps: GetStaticProps = async () => {
     })
   ).data;
 
+  const friendList_data = (
+    await axios({
+      method: "GET",
+      url: "http://127.0.0.3:8080/friend.json",
+      responseType: "json",
+    })
+  ).data;
+
+  const filterTags_data = (
+    await axios({
+      method: "GET",
+      url: "http://127.0.0.3:8080/doc-server/get-tags.php",
+      responseType: "json",
+    })
+  ).data;
+
+  const officeInfo_data = (
+    await axios({
+      method: "GET",
+      url: "http://127.0.0.3:8080/office-info.json",
+      responseType: "json",
+    })
+  ).data;
+
   return {
     props: {
       aboutme_data,
       pinnedList_data,
+      friendList_data,
+      officeInfo_data,
     },
   };
 };
