@@ -43,6 +43,7 @@ yarn-error.log*
 
 # testing
 /nextblog-cms/coverage
+/nextblog-cms/.test.http
 
 # production
 /nextblog-cms/build

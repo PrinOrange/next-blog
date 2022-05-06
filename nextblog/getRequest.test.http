@@ -1,0 +1,40 @@
+
+# Test Fetch the index
+GET http://localhost:3000 HTTP/1.1;
+
+###
+# Test Fetch the tags
+GET http://127.0.0.3:8080/doc-server/get-tags.php HTTP/1.1;
+
+###
+# Test Fetch the index
+GET http://localhost:3000/docs/10000007 HTTP/1.1;
+
+###
+# Test Fetch the list
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?keyword=JavaScript HTTP/1.1;
+###
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php HTTP/1.1;
+###
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?tags=编程,算法笔记 HTTP/1.1;
+###
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?&outset=20210806 HTTP/1.1;
+###
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?keyword=&tags=C++&outset= HTTP/1.1;
+###
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?keyword=&tags=C++&outset= HTTP/1.1;
+
+###
+# Test Fetch the model text
+GET http://127.0.0.3:8080/doc-server/get-doc-model-text.php?id=10000005 HTTP/1.1;
+
+###
+GET http://127.0.0.3:8080/doc-server/get-doc-info.php?id=10000005 HTTP/1.1
+
+
+###
+
+GET http://www.baidu.com HTTP/1.1;
+
+###
+GET http://localhost:3000/docs/10000077 HTTP/1.1
