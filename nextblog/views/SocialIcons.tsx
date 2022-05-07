@@ -8,11 +8,11 @@ import { useState } from 'react';
 export default function SocialIcons() {
     const [modal_show, set_modal_show] = useState<boolean>(false);
     return (
-        <div className=" tw-flex tw-justify-center tw-flex-wrap">
+        <div className=" tw-flex tw-justify-center tw-flex-wrap tw-text-black" >
             <FaWeixin className=" tw-cursor-pointer hover:tw-text-green-600 tw-mx-4"
                 onClick={() => (set_modal_show(true))}
                 size="1.75em" />
-            <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4"
+            <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4 tw-text-black"
                 target="_blank"
                 title='访问知乎主页'
                 href="https://www.zhihu.com/people/prinOrange"
@@ -20,7 +20,7 @@ export default function SocialIcons() {
             >
                 <SiZhihu size="1.5em" />
             </a>
-            <a className=" tw-cursor-pointer hover:tw-text-red-600 tw-mx-4"
+            <a className=" tw-cursor-pointer hover:tw-text-red-600 tw-mx-4 tw-text-black"
                 target="_blank"
                 title='访问微博主页'
                 href="https://weibo.com/u/1738014147"
@@ -28,7 +28,7 @@ export default function SocialIcons() {
             >
                 <FaWeibo size="1.5em" />
             </a>
-            <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4"
+            <a className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4 tw-text-black"
                 target="_blank"
                 title='访问Twitter主页'
                 href="https://twitter.com/prinOrange_"
@@ -36,7 +36,7 @@ export default function SocialIcons() {
             >
                 <FaTwitter size="1.5em" />
             </a>
-            <a className=" tw-cursor-pointer hover:tw-text-gray-500 tw-mx-4"
+            <a className=" tw-cursor-pointer hover:tw-text-gray-500 tw-mx-4 tw-text-black"
                 target="_blank"
                 title='访问Github主页'
                 href="https://github.com/PrinOrange"

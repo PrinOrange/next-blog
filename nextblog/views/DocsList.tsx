@@ -32,12 +32,12 @@ export default function DocsList(props: {
             <div>
               <ColorfulBadges stringArr={item.tags} />
             </div>
-            <div className=" tw-flex tw-justify-center tw-my-3">
+            <div className="tw-flex tw-justify-center tw-my-3">
               {item.imgURL != null && item.imgURL !== "" ? (
                 <img
-                  className=" tw-rounded-2xl"
+                  className="img-fluid tw-rounded-xl"
                   src={item.imgURL}
-                  alt={"图片背景"}
+                  alt={item.title}
                 />
               ) : null}
             </div>

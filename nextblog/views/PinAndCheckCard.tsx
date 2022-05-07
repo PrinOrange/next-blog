@@ -1,11 +1,14 @@
-import { Card, Tab, Tabs } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
-import { RiPushpinFill } from "react-icons/ri";
-import { PinnedListModel } from "../model/PinnedListModel";
-import CheckBroad from "./CheckBroad";
-import PinnedListBroad from "./PinnedListBroad";
+import CheckBroad from './CheckBroad';
+import PinnedListBroad from './PinnedListBroad';
+import { Card, Tab, Tabs } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
+import { PinnedListModel } from '../model/PinnedListModel';
+import { RiPushpinFill } from 'react-icons/ri';
 
-export default function PinAndCheckCard(props:{pinnedList:PinnedListModel,filterTags:string[]}) {
+export default function PinAndCheckCard(props: {
+  pinnedList: PinnedListModel;
+  filterTags: string[];
+}) {
   return (
     <Card className="tw-border tw-rounded-2xl tw-my-6">
       <Card.Body>

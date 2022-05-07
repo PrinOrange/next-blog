@@ -1,16 +1,18 @@
+import Affix from "../../components/Affix";
 import axios from "axios";
 import DocMeta from "../../views/DocMeta";
-import MDReader from "md-editor-rt";
+import DocReader from "../../views/DocReader";
+import dynamic from "next/dynamic";
 import FireworkCanvas from "../../components/FireworkCanvas";
 import Head from "next/head";
-import React, { useId, useState } from "react";
+import NextContent from "../../views/NextContent";
 import { DocMetaModel } from "../../model/DocMetaModel";
 import { GetServerSideProps } from "next";
 import { MetaSEOModel } from "../../model/SEOModel";
 import { SSRProvider } from "react-bootstrap";
 import "md-editor-rt/lib/style.css";
-import dynamic from "next/dynamic";
-import Affix from "../../components/Affix";
+import { useDocFilter } from "../../hooks/useDocFilter";
+import { NextContentModel } from "../../model/NextContentModel";
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -24,6 +26,7 @@ const Docs = (props: {
   docMeta_data: DocMetaModel;
   SEO_config: MetaSEOModel;
   docModelText_data: string;
+  nextContent_data:NextContentModel,
 }) => {
   const reader_id = "MARKDOWN-READER";
   return (
@@ -43,17 +46,18 @@ const Docs = (props: {
               <DocCatalog mapId={reader_id} />
             </Affix>
           </div>
-          <div className=" tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r">
-            <div className=" tw-mx-4">
-              <MDReader
-                previewOnly
-                modelValue={props.docModelText_data}
-                editorId={reader_id}
-                previewTheme="github"
-              />
-            </div>
+          <div className="tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r tw-px-4">
+            <DocReader
+              docMeta={props.docMeta_data}
+              docModelText={props.docModelText_data}
+              readerId={reader_id}
+            />
           </div>
-          <div className=" tw-col-start-4 tw-col-end-5 tw-px-5 "></div>
+          <div className=" tw-col-start-4 tw-col-end-5 tw-px-5 ">
+            <Affix direction={"top"} space={50}>
+              <NextContent list={props.nextContent_data} />
+            </Affix>
+          </div>
         </main>
       </div>
     </SSRProvider>
@@ -83,6 +87,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   ).data;
 
+  const nextContent_data: NextContentModel = (
+    await axios({
+      method: "GET",
+      url: `http://127.0.0.3:8080/doc-server/get-next-content.php`,
+      params: {
+        outset: docMeta_data.postDate,
+      },
+      responseType: "json",
+    })
+  ).data;
+
   const SEO_config: MetaSEOModel = {
     title: `${docMeta_data.title}-张宇腾博客`,
     keywords: docMeta_data.tags?.join(","),
@@ -95,6 +110,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       docMeta_data,
       SEO_config,
       docModelText_data,
+      nextContent_data,
     },
   };
 };
