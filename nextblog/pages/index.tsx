@@ -1,29 +1,36 @@
-import AboutMe from '../views/AboutMe';
-import Affix from '../components/Affix';
-import axios from 'axios';
-import DocsList from '../views/DocsList';
-import FireworkCanvas from '../components/FireworkCanvas';
-import Friends from '../views/Friends';
-import Head from 'next/head';
-import Header from '../views/Header';
-import OfficeInfo from '../views/OfficeInfo';
-import PinAndCheckCard from '../views/PinAndCheckCard';
-import SocialBlock from '../views/SocialBlock';
-import { AboutMeModel } from '../model/AboutMeModel';
-import { DocsListModel } from '../model/DocsListModel';
-import { FriendListModel } from '../model/FriendListModel';
-import { OfficeInfoModel } from '../model/OfficeInfoModel';
-import { PinnedListModel } from '../model/PinnedListModel';
-import { SSRProvider } from 'react-bootstrap';
+import AboutMe from "../views/AboutMe";
+import Affix from "../components/Affix";
+import DocsList from "../views/DocsList";
+import FireworkCanvas from "../components/FireworkCanvas";
+import Friends from "../views/Friends";
+import Head from "next/head";
+import Header from "../views/Header";
+import OfficeInfo from "../views/OfficeInfo";
+import PinAndCheckCard from "../views/PinAndCheckCard";
+import SocialBlock from "../views/SocialBlock";
+import { AboutMeModel } from "../model/AboutMeModel";
+import { DocsListModel } from "../model/DocsListModel";
+import {
+  fetchAboutmeData,
+  fetchDocsListData,
+  fetchFilterTagsData,
+  fetchFriendListData,
+  fetchOfficeInfoData,
+  fetchPinnedListData,
+} from "../SSR-ajax";
+import { FriendListModel } from "../model/FriendListModel";
+import { OfficeInfoModel } from "../model/OfficeInfoModel";
+import { PinnedListModel } from "../model/PinnedListModel";
+import { SSRProvider } from "react-bootstrap";
 import type { GetServerSideProps } from "next";
 
 function Home(props: {
-  aboutme_data: AboutMeModel;
-  pinnedList_data: PinnedListModel;
-  friendList_data: FriendListModel;
-  officeInfo_data: OfficeInfoModel;
-  docsList_data: DocsListModel;
-  filterTags_data: string[];
+  fetchedAboutmeData: AboutMeModel;
+  fetchedPinnedListData: PinnedListModel;
+  fetchedFriendListData: FriendListModel;
+  fetchedOfficeInfoData: OfficeInfoModel;
+  fetchedDocsListData: DocsListModel;
+  fetchedFilterTagsData: string[];
 }) {
   return (
     <SSRProvider>
@@ -38,24 +45,34 @@ function Home(props: {
           <div className=" tw-col-start-1 tw-col-end-2 tw-bg-white tw-px-5 tw-min-h-screen">
             <Header />
             <AboutMe
-              avatarURL={props.aboutme_data.avatarURL}
-              impression={props.aboutme_data.impression}
-              badges={props.aboutme_data.badges}
-              quote={props.aboutme_data.quote}
+              avatarURL={props.fetchedAboutmeData.avatarURL}
+              impression={props.fetchedAboutmeData.impression}
+              badges={props.fetchedAboutmeData.badges}
+              quote={props.fetchedAboutmeData.quote}
             />
             <Affix direction="top" space={50}>
               <PinAndCheckCard
-                pinnedList={props.pinnedList_data}
-                filterTags={props.filterTags_data}
+                pinnedList={props.fetchedPinnedListData}
+                filterTags={props.fetchedFilterTagsData}
               />
             </Affix>
           </div>
           <div className=" tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r">
-            <DocsList list={props.docsList_data} />
+            <DocsList list={props.fetchedDocsListData} />
           </div>
           <div className="tw-pt-4 tw-col-start-4 tw-col-end-5 tw-px-5 ">
-            <Friends list={props.friendList_data} />
-            <OfficeInfo {...props.officeInfo_data} />
+            <Friends list={props.fetchedFriendListData} />
+            <OfficeInfo
+              icp={props.fetchedOfficeInfoData.icp}
+              siteTitle={props.fetchedOfficeInfoData.siteTitle}
+              icpa={props.fetchedOfficeInfoData.icpa}
+              ps={props.fetchedOfficeInfoData.ps}
+              copyright={props.fetchedOfficeInfoData.copyright}
+              poweredBy={props.fetchedOfficeInfoData.poweredBy}
+              position={props.fetchedOfficeInfoData.position}
+              phoneCall={props.fetchedOfficeInfoData.phoneCall}
+              email={props.fetchedOfficeInfoData.email}
+            />
             <Affix direction="top" space={50}>
               <SocialBlock />
             </Affix>
@@ -67,62 +84,14 @@ function Home(props: {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const aboutme_data: AboutMeModel = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/about-me.json",
-      responseType: "json",
-    })
-  ).data;
-
-  const pinnedList_data: PinnedListModel = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/doc-server/get-recommend-list.php",
-      responseType: "json",
-    })
-  ).data;
-
-  const friendList_data: FriendListModel = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/friend.json",
-      responseType: "json",
-    })
-  ).data;
-
-  const filterTags_data: string[] = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/doc-server/get-tags.php",
-      responseType: "json",
-    })
-  ).data;
-
-  const officeInfo_data: OfficeInfoModel = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/office-info.json",
-      responseType: "json",
-    })
-  ).data;
-
-  const docsList_data: DocsListModel = (
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.3:8080/doc-server/get-home-list.php",
-      responseType: "json",
-    })
-  ).data;
-
   return {
     props: {
-      aboutme_data,
-      pinnedList_data,
-      friendList_data,
-      officeInfo_data,
-      docsList_data,
-      filterTags_data,
+      fetchedAboutmeData: (await fetchAboutmeData()).data,
+      fetchedPinnedListData: (await fetchPinnedListData()).data,
+      fetchedFriendListData: (await fetchFriendListData()).data,
+      fetchedOfficeInfoData: (await fetchOfficeInfoData()).data,
+      fetchedDocsListData: (await fetchDocsListData()).data,
+      fetchedFilterTagsData: (await fetchFilterTagsData()).data,
     },
   };
 };

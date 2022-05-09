@@ -13,6 +13,10 @@ import { SSRProvider } from "react-bootstrap";
 import "md-editor-rt/lib/style.css";
 import { useDocFilter } from "../../hooks/useDocFilter";
 import { NextContentModel } from "../../model/NextContentModel";
+import { DocsListModel } from "../../model/DocsListModel";
+import store from "../../store";
+import { fetchDocsList, selectDocsList } from "../../slices/DocCheckerSlice";
+import {Selector} from 'react-redux'
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -104,6 +108,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     author: docMeta_data.author,
     description: docMeta_data.citation,
   };
+
+  const docsList_data:DocsListModel = [];
 
   return {
     props: {

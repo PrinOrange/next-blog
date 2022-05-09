@@ -1,25 +1,34 @@
-import { useState } from "react";
-import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { useDocFilter } from "../hooks/useDocFilter";
+import {
+  Button,
+  Form,
+  ToggleButton,
+  ToggleButtonGroup
+  } from 'react-bootstrap';
+import { DocFilterType } from '../slices/DocCheckerSlice';
+import { useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
 
 function CheckBroad(props: { tags: string[] }) {
-  const fl = useDocFilter();
-
   const [keyword_input, set_keyword_input] = useState<string>("");
   const [tags_input, set_tags_input] = useState([]);
+  const filter = useRef<DocFilterType>({
+    keyword: [],
+    tags: [],
+  });
+
+  const dispatch = useDispatch();
 
   const handleKeywordChange = (e: any) => {
     set_keyword_input(e.target.value);
+    filter.current.keyword = e.target.value?.split(",");
   };
 
   const handleTagsChange = (val: any) => {
     set_tags_input(val);
+    filter.current.tags = val;
   };
 
-  const checkLoad = () => {
-    fl.setFilter({ keyword: keyword_input.split(","), tags: tags_input });
-    console.log(fl.getFilter());
-  };
+  const checkLoad = () => {};
 
   return (
     <div className="tw-my-3">
@@ -71,7 +80,7 @@ function CheckBroad(props: { tags: string[] }) {
           className="rounded-pill shadow-none tw-px-6 tw-font-bold"
           onClick={checkLoad}
         >
-          Check
+          {"Check"}
         </Button>
       </div>
     </div>

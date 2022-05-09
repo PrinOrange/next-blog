@@ -14,15 +14,18 @@ const DocFilterContext = createContext<DocFilterType>({
 export function useDocFilter() {
   const _i = useContext(DocFilterContext);
 
-  const setFilter = (
-    keyword: string[] | undefined = _i.keyword,
-    tags: string[] | undefined = _i.tags,
-    outset: string | undefined = _i.outset
-  ): void => {
-    _i.keyword = keyword;
+  const setKeywords = (keywords: string[]) => {
+    _i.keyword = keywords;
+  };
+
+  const setTags = (tags: string[]) => {
     _i.tags = tags;
+  };
+
+  const setOutset = (outset: string) => {
     _i.outset = outset;
   };
+
   const getFilter = (): DocFilterType => {
     return {
       keyword: _i.keyword,
@@ -31,7 +34,9 @@ export function useDocFilter() {
     };
   };
   return {
-    setFilter,
+    setKeywords,
+    setTags,
+    setOutset,
     getFilter,
   };
 }

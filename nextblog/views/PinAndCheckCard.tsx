@@ -4,7 +4,7 @@ import { Card, Tab, Tabs } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { PinnedListModel } from '../model/PinnedListModel';
 import { RiPushpinFill } from 'react-icons/ri';
-
+import {useSelector} from 'react-redux'
 export default function PinAndCheckCard(props: {
   pinnedList: PinnedListModel;
   filterTags: string[];
