@@ -1,9 +1,9 @@
 import axios, { AxiosPromise } from 'axios';
-import { AboutMeModel } from './model/AboutMeModel';
-import { DocsListModel } from './model/DocsListModel';
-import { FriendListModel } from './model/FriendListModel';
-import { OfficeInfoModel } from './model/OfficeInfoModel';
-import { PinnedListModel } from './model/PinnedListModel';
+import { AboutMeModel } from '../model/AboutMeModel';
+import { DocsListModel } from '../model/DocsListModel';
+import { FriendListModel } from '../model/FriendListModel';
+import { OfficeInfoModel } from '../model/OfficeInfoModel';
+import { PinnedListModel } from '../model/PinnedListModel';
 
 export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
   return axios({
@@ -45,7 +45,7 @@ export const fetchOfficeInfoData = (): AxiosPromise<OfficeInfoModel> => {
   });
 };
 
-export const fetchDocsListData = (): AxiosPromise<DocsListModel> => {
+export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",
     url: "http://127.0.0.3:8080/doc-server/get-home-list.php",

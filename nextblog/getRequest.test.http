@@ -18,7 +18,7 @@ GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php HTTP/1.1;
 ###
 GET http://127.0.0.3:8080/doc-server/get-next-content.php?outset=20200817 HTTP/1.1;
 ###
-GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?tags=编程,算法笔记 HTTP/1.1;
+GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?keyword=JavaScript,TypeScript HTTP/1.1;
 ###
 GET http://127.0.0.3:8080/doc-server/get-archive-doc-list.php?&outset=20210806 HTTP/1.1;
 ###

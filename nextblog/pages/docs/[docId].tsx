@@ -1,22 +1,20 @@
 import Affix from "../../components/Affix";
 import axios from "axios";
+import classNames from "classnames";
 import DocMeta from "../../views/DocMeta";
 import DocReader from "../../views/DocReader";
 import dynamic from "next/dynamic";
 import FireworkCanvas from "../../components/FireworkCanvas";
 import Head from "next/head";
+import NavLink from "../../components/NavLink";
 import NextContent from "../../views/NextContent";
 import { DocMetaModel } from "../../model/DocMetaModel";
+import { DocsListModel } from "../../model/DocsListModel";
 import { GetServerSideProps } from "next";
 import { MetaSEOModel } from "../../model/SEOModel";
+import { NextContentModel } from "../../model/NextContentModel";
 import { SSRProvider } from "react-bootstrap";
 import "md-editor-rt/lib/style.css";
-import { useDocFilter } from "../../hooks/useDocFilter";
-import { NextContentModel } from "../../model/NextContentModel";
-import { DocsListModel } from "../../model/DocsListModel";
-import store from "../../store";
-import { fetchDocsList, selectDocsList } from "../../slices/DocCheckerSlice";
-import {Selector} from 'react-redux'
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -30,7 +28,7 @@ const Docs = (props: {
   docMeta_data: DocMetaModel;
   SEO_config: MetaSEOModel;
   docModelText_data: string;
-  nextContent_data:NextContentModel,
+  nextContent_data: NextContentModel;
 }) => {
   const reader_id = "MARKDOWN-READER";
   return (
@@ -43,21 +41,65 @@ const Docs = (props: {
           <meta name="keyword" content={props.SEO_config.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className=" tw-mx-auto tw-grid tw-grid-flow-col tw-grid-cols-4 tw-subpixel-antialiased">
-          <div className=" tw-col-start-1 tw-col-end-2 tw-px-5 tw-min-h-screen">
+        <main
+          className={classNames(
+            "tw-mx-auto",
+            "tw-grid",
+            "tw-grid-cols-1",
+            "tw-grid-flow-row",
+            "md:tw-grid-cols-3",
+            "lg:tw-grid-cols-4",
+            "tw-subpixel-antialiased"
+          )}
+        >
+          <div
+            className={classNames(
+              "tw-col-span-1",
+              "tw-order-2",
+              "md:tw-col-span-1",
+              "lg:tw-col-span-1",
+              "tw-px-5"
+            )}
+          >
             <DocMeta {...props.docMeta_data} />
             <Affix direction={"top"} space={50}>
               <DocCatalog mapId={reader_id} />
             </Affix>
           </div>
-          <div className="tw-col-start-2 tw-col-end-4 tw-border-l tw-border-r tw-px-4">
+          <div
+            className={classNames(
+              "tw-col-span-1",
+              "tw-order-1",
+              "lg:tw-col-span-2",
+              "md:tw-col-span-2",
+              "md:tw-order-2",
+              "tw-border-l",
+              "tw-border-r",
+              "tw-px-4"
+            )}
+          >
+            <Affix direction={"top"} space={0}>
+              <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
+                <NavLink content={"Home"} checked={false} href="/" />
+                <NavLink content={"Docs"} checked={true} href="/docs" />
+                <NavLink content={"About"} checked={false} href="about" />
+              </nav>
+            </Affix>
             <DocReader
               docMeta={props.docMeta_data}
               docModelText={props.docModelText_data}
               readerId={reader_id}
             />
           </div>
-          <div className=" tw-col-start-4 tw-col-end-5 tw-px-5 ">
+          <div
+            className={classNames(
+              "tw-col-span-1",
+              "tw-order-3",
+              "md:tw-col-span-3",
+              "lg:tw-col-span-1",
+              "tw-px-5"
+            )}
+          >
             <Affix direction={"top"} space={50}>
               <NextContent list={props.nextContent_data} />
             </Affix>
@@ -109,7 +151,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     description: docMeta_data.citation,
   };
 
-  const docsList_data:DocsListModel = [];
+  const docsList_data: DocsListModel = [];
 
   return {
     props: {

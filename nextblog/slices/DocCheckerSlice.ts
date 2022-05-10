@@ -37,7 +37,6 @@ export const DocsCheckerSlice = createSlice({
   },
   extraReducers: {
     [fetchDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
-      console.log("Triggled")
       return [...state, action.payload];
     },
   },

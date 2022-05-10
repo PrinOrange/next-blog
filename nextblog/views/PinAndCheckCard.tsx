@@ -1,5 +1,5 @@
 import CheckBroad from './CheckBroad';
-import PinnedListBroad from './PinnedListBroad';
+import PinnedListBroad from './PinnedList';
 import { Card, Tab, Tabs } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { PinnedListModel } from '../model/PinnedListModel';

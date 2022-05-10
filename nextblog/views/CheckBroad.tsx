@@ -4,7 +4,7 @@ import {
   ToggleButton,
   ToggleButtonGroup
   } from 'react-bootstrap';
-import { DocFilterType } from '../slices/DocCheckerSlice';
+import { DocFilterType, fetchDocsList } from '../slices/DocCheckerSlice';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 

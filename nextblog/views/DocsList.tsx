@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { ListGroup } from "react-bootstrap";
-import ColorfulBadges from "../components/ColorfulBadges";
-import { DocsListModel } from "../model/DocsListModel";
+import ColorfulBadges from '../components/ColorfulBadges';
+import { DocsListModel } from '../model/DocsListModel';
+import { ListGroup } from 'react-bootstrap';
 
 export default function DocsList(props: {
   tags?: string[];
@@ -11,7 +10,7 @@ export default function DocsList(props: {
     <div>
       <ListGroup>
         {props.list.map((item, index) => (
-          <Link href={`/docs/${item.id}`} key={`doclist-${item.id}`}>
+          <a href={`/docs/${item.id}`} key={`doclist-${item.id}`}>
             <ListGroup.Item
               action
               className="border-start-0 border-end-0 border-top-0"
@@ -43,7 +42,7 @@ export default function DocsList(props: {
                 }`}</div>
               </div>
             </ListGroup.Item>
-          </Link>
+          </a>
         ))}
       </ListGroup>
     </div>
