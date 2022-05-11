@@ -4,7 +4,7 @@ import DocsList from "../views/DocsList";
 import FireworkCanvas from "../components/FireworkCanvas";
 import Friends from "../views/Friends";
 import Head from "next/head";
-import Header from "../views/Header";
+import Header from "../views/HeaderLOGO";
 import NavLink from "../components/NavLink";
 import OfficeInfo from "../views/OfficeInfo";
 import PinnedListBroad from "../views/PinnedList";
@@ -47,11 +47,11 @@ function Home(props: {
           className={classNames(
             "tw-mx-auto",
             "tw-grid",
-            "tw-grid-flow-row",            
+            "tw-grid-flow-row",
             "tw-grid-cols-1",
             "md:tw-grid-cols-3",
             "lg:tw-grid-cols-4",
-            "tw-subpixel-antialiased",
+            "tw-subpixel-antialiased"
           )}
         >
           <div
@@ -61,7 +61,9 @@ function Home(props: {
               "lg:tw-col-span-1"
             )}
           >
-            <Header />
+            <header className=" tw-mt-6">
+              <Header />
+            </header>
             <AboutMe
               avatarURL={props.fetchedAboutmeData.avatarURL}
               impression={props.fetchedAboutmeData.impression}
@@ -77,7 +79,7 @@ function Home(props: {
               "tw-border-l",
               "tw-border-r",
               "md:tw-col-span-2",
-              "lg:tw-col-span-2",
+              "lg:tw-col-span-2"
             )}
           >
             <Affix direction={"top"} space={0}>
@@ -94,7 +96,7 @@ function Home(props: {
               "tw-pt-4",
               "tw-px-5",
               "md:tw-col-span-3",
-              "lg:tw-col-span-1",
+              "lg:tw-col-span-1"
             )}
           >
             <Friends list={props.fetchedFriendListData} />

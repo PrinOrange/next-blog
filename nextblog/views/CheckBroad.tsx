@@ -1,14 +1,17 @@
-import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { DocFilterType, fetchDocsList } from "../slices/DocsCheckerSlice";
-import { useDispatch } from "react-redux";
-import { useRef, useState } from "react";
-import { AnyAction, AsyncThunkAction } from "@reduxjs/toolkit";
-import { useAppDispatch } from "../store";
+import {
+  Button,
+  Form,
+  ToggleButton,
+  ToggleButtonGroup
+  } from 'react-bootstrap';
+import { DocCheckerType, fetchCheckedDocsList } from '../slices/DocsCheckerSlice';
+import { useAppDispatch } from '../store';
+import { useRef, useState } from 'react';
 
 function CheckBroad(props: { tags: string[] }) {
   const [keyword_input, set_keyword_input] = useState<string>("");
   const [tags_input, set_tags_input] = useState([]);
-  const filter = useRef<DocFilterType>({
+  const filter = useRef<DocCheckerType>({
     keyword: [],
     tags: [],
   });
@@ -25,11 +28,11 @@ function CheckBroad(props: { tags: string[] }) {
   };
 
   const checkLoad = () => {
-    dispatch(fetchDocsList());
+    dispatch(fetchCheckedDocsList());
   };
 
   return (
-    <div className="tw-my-3">
+    <div className="tw-my-6">
       <Form.Control
         type="search"
         className="rounded-pill shadow-none"

@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DocsListModel } from "../model/DocsListModel";
 
-export interface DocFilterType {
+export interface DocCheckerType {
   keyword?: string[];
   tags?: string[];
   outset?: string;
@@ -10,12 +10,7 @@ export interface DocFilterType {
 
 export const InitialDocsList: DocsListModel = [];
 
-export interface CheckDocsAction {
-  payload: DocFilterType;
-  type: string;
-}
-
-export const fetchDocsList = createAsyncThunk(
+export const fetchCheckedDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
   async () => {
     return (
@@ -33,7 +28,7 @@ export const DocsCheckerSlice = createSlice({
   initialState: InitialDocsList,
   reducers: {},
   extraReducers: {
-    [fetchDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
+    [fetchCheckedDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
       return [...state, ...action.payload];
     },
   },

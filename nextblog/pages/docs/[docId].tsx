@@ -1,31 +1,24 @@
-import Affix from "../../components/Affix";
-import axios from "axios";
-import classNames from "classnames";
-import DocMeta from "../../views/DocMeta";
-import DocReader from "../../views/DocReader";
-import dynamic from "next/dynamic";
-import FireworkCanvas from "../../components/FireworkCanvas";
-import Head from "next/head";
-import NavLink from "../../components/NavLink";
-import NextContent from "../../views/NextContent";
-import { DocMetaModel } from "../../model/DocMetaModel";
-import { DocsListModel } from "../../model/DocsListModel";
-import { GetServerSideProps } from "next";
-import { MetaSEOModel } from "../../model/SEOModel";
-import { NextContentModel } from "../../model/NextContentModel";
-import { SSRProvider } from "react-bootstrap";
-import "md-editor-rt/lib/style.css";
-import {
-  fetchDocMetaData,
-  fetchDocModelTextData,
-  fetchNextContentData,
-} from "../../api-ajax/SSR-ajax";
+import Affix from '../../components/Affix';
+import classNames from 'classnames';
+import DocMeta from '../../views/MetaInfo';
+import dynamic from 'next/dynamic';
+import FireworkCanvas from '../../components/FireworkCanvas';
+import Head from 'next/head';
+import NextContent from '../../views/NextContent';
+import Reader from '../../views/Reader';
+import { DocMetaModel } from '../../model/DocMetaModel';
+import { fetchDocMetaData, fetchDocModelTextData, fetchNextContentData } from '../../api-ajax/SSR-ajax';
+import { GetServerSideProps } from 'next';
+import { MetaSEOModel } from '../../model/SEOModel';
+import { NextContentModel } from '../../model/NextContentModel';
+import { SSRProvider } from 'react-bootstrap';
+import 'md-editor-rt/lib/style.css';
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
  * 因为在服务端渲染时，目录组件无法在Node环境下映射到编辑器组件。
  */
-const DocCatalog = dynamic(() => import("../../views/DocCatalogBlock"), {
+const DocCatalog = dynamic(() => import("../../views/CatalogBlock"), {
   ssr: false,
 });
 
@@ -49,6 +42,8 @@ const Docs = (props: {
           <meta name="keyword" content={props.fetchedSEOConfigData.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
+        <Affix direction={"top"} space={0}>
+        </Affix>
         <main
           className={classNames(
             "tw-mx-auto",
@@ -70,7 +65,7 @@ const Docs = (props: {
             )}
           >
             <DocMeta {...props.fetchedDocMetaData} />
-            <Affix direction={"top"} space={50}>
+            <Affix direction={"top"} space={90}>
               <DocCatalog mapId={reader_id} />
             </Affix>
           </div>
@@ -86,14 +81,7 @@ const Docs = (props: {
               "tw-px-4"
             )}
           >
-            <Affix direction={"top"} space={0}>
-              <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
-                <NavLink content={"Home"} checked={false} href="/" />
-                <NavLink content={"Docs"} checked={true} href="/docs" />
-                <NavLink content={"About"} checked={false} href="about" />
-              </nav>
-            </Affix>
-            <DocReader
+            <Reader
               docMeta={props.fetchedDocMetaData}
               docModelText={props.fetchedDocModelTextData}
               readerId={reader_id}
@@ -108,7 +96,7 @@ const Docs = (props: {
               "tw-px-5"
             )}
           >
-            <Affix direction={"top"} space={50}>
+            <Affix direction={"top"} space={90}>
               <NextContent list={props.fetchedNextContentData} />
             </Affix>
           </div>

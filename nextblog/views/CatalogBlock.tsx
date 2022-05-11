@@ -2,7 +2,7 @@ import Editor from 'md-editor-rt';
 import { Card } from 'react-bootstrap';
 import { FaListAlt } from 'react-icons/fa';
 
-export default function DocCatalogBlock(props: { mapId: string }) {
+export default function CatalogBlock(props: { mapId: string }) {
   return (
     <Card className="tw-border tw-rounded-2xl tw-my-6 tw-hidden  md:tw-block">
       <Card.Body>

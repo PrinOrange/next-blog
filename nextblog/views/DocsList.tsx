@@ -4,6 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 
 export default function DocsList(props: {
   list: DocsListModel;
+  showLoading?:boolean;
 }) {
   console.log(props.list)
   return (
