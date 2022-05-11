@@ -3,9 +3,9 @@ import { DocsListModel } from '../model/DocsListModel';
 import { ListGroup } from 'react-bootstrap';
 
 export default function DocsList(props: {
-  tags?: string[];
   list: DocsListModel;
 }) {
+  console.log(props.list)
   return (
     <div>
       <ListGroup>

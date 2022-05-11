@@ -18,31 +18,30 @@ export interface CheckDocsAction {
 export const fetchDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
   async () => {
-    const docList_data = (
+    return (
       await axios({
         method: "GET",
         url: `http://127.0.0.3:8080/doc-server/get-home-list.php`,
         responseType: "json",
       })
     ).data;
-    return docList_data;
   }
 );
 
 export const DocsCheckerSlice = createSlice({
   name: "DocsChecker",
   initialState: InitialDocsList,
-  reducers: {
-    checkDocs: (state: DocsListModel, action: CheckDocsAction) => {},
-  },
+  reducers: {},
   extraReducers: {
     [fetchDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
-      return [...state, action.payload];
+      return [...state, ...action.payload];
     },
   },
 });
 
-export const selectDocsList = (states: any) => states.DocsChecker;
-export const { checkDocs } = DocsCheckerSlice.actions;
+export const selectDocsList = (states: any) => {
+  return states.DocsChecker;
+};
 
+// export const {} = DocsCheckerSlice.actions;
 export default DocsCheckerSlice.reducer;

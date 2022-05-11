@@ -56,7 +56,6 @@ function Home(props: {
         >
           <div
             className={classNames(
-              "tw-bg-white",
               "tw-px-5",
               "md:tw-col-span-1",
               "lg:tw-col-span-1"

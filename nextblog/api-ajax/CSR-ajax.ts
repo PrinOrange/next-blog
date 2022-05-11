@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios";
 import { DocsListModel } from "../model/DocsListModel";
-import { DocFilterType } from "../slices/DocCheckerSlice";
+import { DocFilterType } from "../slices/DocsCheckerSlice";
 
 export const fetchCheckedDocsList = (
   filter: DocFilterType

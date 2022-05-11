@@ -15,6 +15,11 @@ import { MetaSEOModel } from "../../model/SEOModel";
 import { NextContentModel } from "../../model/NextContentModel";
 import { SSRProvider } from "react-bootstrap";
 import "md-editor-rt/lib/style.css";
+import {
+  fetchDocMetaData,
+  fetchDocModelTextData,
+  fetchNextContentData,
+} from "../../api-ajax/SSR-ajax";
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -25,10 +30,10 @@ const DocCatalog = dynamic(() => import("../../views/DocCatalogBlock"), {
 });
 
 const Docs = (props: {
-  docMeta_data: DocMetaModel;
-  SEO_config: MetaSEOModel;
-  docModelText_data: string;
-  nextContent_data: NextContentModel;
+  fetchedDocMetaData: DocMetaModel;
+  fetchedSEOConfigData: MetaSEOModel;
+  fetchedDocModelTextData: string;
+  fetchedNextContentData: NextContentModel;
 }) => {
   const reader_id = "MARKDOWN-READER";
   return (
@@ -36,9 +41,12 @@ const Docs = (props: {
       <div className=" tw-select-none ">
         <FireworkCanvas />
         <Head>
-          <title>{props.SEO_config.title}</title>
-          <meta name="description" content={props.SEO_config.description} />
-          <meta name="keyword" content={props.SEO_config.keywords} />
+          <title>{props.fetchedSEOConfigData.title}</title>
+          <meta
+            name="description"
+            content={props.fetchedSEOConfigData.description}
+          />
+          <meta name="keyword" content={props.fetchedSEOConfigData.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main
@@ -61,7 +69,7 @@ const Docs = (props: {
               "tw-px-5"
             )}
           >
-            <DocMeta {...props.docMeta_data} />
+            <DocMeta {...props.fetchedDocMetaData} />
             <Affix direction={"top"} space={50}>
               <DocCatalog mapId={reader_id} />
             </Affix>
@@ -86,8 +94,8 @@ const Docs = (props: {
               </nav>
             </Affix>
             <DocReader
-              docMeta={props.docMeta_data}
-              docModelText={props.docModelText_data}
+              docMeta={props.fetchedDocMetaData}
+              docModelText={props.fetchedDocModelTextData}
               readerId={reader_id}
             />
           </div>
@@ -101,7 +109,7 @@ const Docs = (props: {
             )}
           >
             <Affix direction={"top"} space={50}>
-              <NextContent list={props.nextContent_data} />
+              <NextContent list={props.fetchedNextContentData} />
             </Affix>
           </div>
         </main>
@@ -111,54 +119,30 @@ const Docs = (props: {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const docMeta_data: DocMetaModel = (
-    await axios({
-      method: "GET",
-      url: `http://127.0.0.3:8080/doc-server/get-doc-info.php`,
-      params: {
-        id: context.params?.docId,
-      },
-      responseType: "json",
-    })
-  ).data;
-
-  const docModelText_data: string = (
-    await axios({
-      method: "GET",
-      url: `http://127.0.0.3:8080/doc-server/get-doc-model-text.php`,
-      params: {
-        id: context.params?.docId,
-      },
-      responseType: "text",
-    })
-  ).data;
-
-  const nextContent_data: NextContentModel = (
-    await axios({
-      method: "GET",
-      url: `http://127.0.0.3:8080/doc-server/get-next-content.php`,
-      params: {
-        outset: docMeta_data.postDate,
-      },
-      responseType: "json",
-    })
-  ).data;
-
-  const SEO_config: MetaSEOModel = {
-    title: `${docMeta_data.title}-张宇腾博客`,
-    keywords: docMeta_data.tags?.join(","),
-    author: docMeta_data.author,
-    description: docMeta_data.citation,
+  const makeSEOConfig = (docMeta: DocMetaModel): MetaSEOModel => {
+    return {
+      title: `${docMeta.title}-张宇腾博客`,
+      keywords: docMeta.tags?.join(","),
+      author: docMeta.author,
+      description: docMeta.citation,
+    };
   };
 
-  const docsList_data: DocsListModel = [];
+  const _fetchedDocMetaData = (await fetchDocMetaData(context.params?.docId))
+    .data;
+  const _fetchedNextContentData = (
+    await fetchNextContentData(_fetchedDocMetaData.postDate)
+  ).data;
+  const _fetchedSEOConfigData = makeSEOConfig(_fetchedDocMetaData);
 
   return {
     props: {
-      docMeta_data,
-      SEO_config,
-      docModelText_data,
-      nextContent_data,
+      fetchedDocMetaData: _fetchedDocMetaData,
+      fetchedDocModelTextData: (
+        await fetchDocModelTextData(context.params?.docId)
+      ).data,
+      fetchedNextContentData: _fetchedNextContentData,
+      fetchedSEOConfigData: _fetchedSEOConfigData,
     },
   };
 };

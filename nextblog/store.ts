@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import DocsCheckerReducers  from "./slices/DocCheckerSlice";
+import { useDispatch } from "react-redux";
+import DocsCheckerReducers from "./slices/DocsCheckerSlice";
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
-    DocsChecker:DocsCheckerReducers,
+    DocsChecker: DocsCheckerReducers,
   },
 });
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();

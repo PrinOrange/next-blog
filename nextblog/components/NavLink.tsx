@@ -6,8 +6,8 @@ export default function NavLink(props: {
   href?: string;
 }) {
   const style_class = classNames(
-    { "tw-bg-orange-500 tw-text-white": props.checked,
-    "hover:tw-bg-gray-100 hover:tw-text-orange-500 tw-text-orange-500":!props.checked,
+    { "tw-bg-blue-600 tw-text-white": props.checked,
+    "hover:tw-bg-gray-100 hover:tw-text-blue-600 tw-text-blue-600":!props.checked,
     "hover:tw-text-white":props.checked
  },
     "tw-px-4 tw-py-2 tw-font-bold tw-mx-2 tw-rounded-full tw-cursor-pointer"

@@ -1,12 +1,9 @@
-import {
-  Button,
-  Form,
-  ToggleButton,
-  ToggleButtonGroup
-  } from 'react-bootstrap';
-import { DocFilterType, fetchDocsList } from '../slices/DocCheckerSlice';
-import { useDispatch } from 'react-redux';
-import { useRef, useState } from 'react';
+import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { DocFilterType, fetchDocsList } from "../slices/DocsCheckerSlice";
+import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
+import { AnyAction, AsyncThunkAction } from "@reduxjs/toolkit";
+import { useAppDispatch } from "../store";
 
 function CheckBroad(props: { tags: string[] }) {
   const [keyword_input, set_keyword_input] = useState<string>("");
@@ -16,8 +13,7 @@ function CheckBroad(props: { tags: string[] }) {
     tags: [],
   });
 
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const handleKeywordChange = (e: any) => {
     set_keyword_input(e.target.value);
     filter.current.keyword = e.target.value?.split(",");
@@ -28,7 +24,9 @@ function CheckBroad(props: { tags: string[] }) {
     filter.current.tags = val;
   };
 
-  const checkLoad = () => {};
+  const checkLoad = () => {
+    dispatch(fetchDocsList());
+  };
 
   return (
     <div className="tw-my-3">
@@ -39,6 +37,15 @@ function CheckBroad(props: { tags: string[] }) {
         value={keyword_input}
         onChange={handleKeywordChange}
       />
+      <div className=" tw-flex tw-justify-center tw-my-4">
+        <Button
+          as={"div"}
+          className="rounded-pill shadow-none tw-px-6 tw-font-bold"
+          onClick={checkLoad}
+        >
+          {"Check"}
+        </Button>
+      </div>
       <ToggleButtonGroup
         type="checkbox"
         bsPrefix=" tw-flex tw-justify-center tw-my-3 tw-flex-wrap"
@@ -74,15 +81,6 @@ function CheckBroad(props: { tags: string[] }) {
           );
         })}
       </ToggleButtonGroup>
-      <div className=" tw-flex tw-justify-center">
-        <Button
-          as={"div"}
-          className="rounded-pill shadow-none tw-px-6 tw-font-bold"
-          onClick={checkLoad}
-        >
-          {"Check"}
-        </Button>
-      </div>
     </div>
   );
 }
