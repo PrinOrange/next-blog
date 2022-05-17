@@ -1,18 +1,22 @@
-import Affix from '../../components/Affix';
-import classNames from 'classnames';
-import DocMeta from '../../views/MetaInfo';
-import dynamic from 'next/dynamic';
-import FireworkCanvas from '../../components/FireworkCanvas';
-import Head from 'next/head';
-import NextContent from '../../views/NextContent';
-import Reader from '../../views/Reader';
-import { DocMetaModel } from '../../model/DocMetaModel';
-import { fetchDocMetaData, fetchDocModelTextData, fetchNextContentData } from '../../api-ajax/SSR-ajax';
-import { GetServerSideProps } from 'next';
-import { MetaSEOModel } from '../../model/SEOModel';
-import { NextContentModel } from '../../model/NextContentModel';
-import { SSRProvider } from 'react-bootstrap';
-import 'md-editor-rt/lib/style.css';
+import Affix from "../../components/Affix";
+import classNames from "classnames";
+import DocMeta from "../../views/MetaInfo";
+import dynamic from "next/dynamic";
+import FireworkCanvas from "../../components/FireworkCanvas";
+import Head from "next/head";
+import NextContent from "../../views/NextContent";
+import Reader from "../../views/Reader";
+import { DocMetaModel } from "../../model/DocMetaModel";
+import {
+  fetchDocMetaData,
+  fetchDocModelTextData,
+  fetchNextContentData,
+} from "../../api-ajax/SSR-ajax";
+import { GetServerSideProps } from "next";
+import { MetaSEOModel } from "../../model/SEOModel";
+import { NextContentModel } from "../../model/NextContentModel";
+import { SSRProvider } from "react-bootstrap";
+import "md-editor-rt/lib/style.css";
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -42,8 +46,7 @@ const Docs = (props: {
           <meta name="keyword" content={props.fetchedSEOConfigData.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Affix direction={"top"} space={0}>
-        </Affix>
+        <Affix direction={"top"} space={0}></Affix>
         <main
           className={classNames(
             "tw-mx-auto",

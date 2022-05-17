@@ -20,7 +20,7 @@ export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
 export const fetchPinnedListData = (): AxiosPromise<PinnedListModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/get-recommend-list.php",
+    url: "http://127.0.0.3:8080/doc-server/recommend-list.php",
     responseType: "json",
   });
 };
@@ -36,7 +36,7 @@ export const fetchFriendListData = (): AxiosPromise<FriendListModel> => {
 export const fetchFilterTagsData = (): AxiosPromise<string[]> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/get-tags.php",
+    url: "http://127.0.0.3:8080/doc-server/get-checker-tags.php",
     responseType: "json",
   });
 };
@@ -52,7 +52,7 @@ export const fetchOfficeInfoData = (): AxiosPromise<OfficeInfoModel> => {
 export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/get-home-list.php",
+    url: "http://127.0.0.3:8080/doc-server/home-list.php",
     responseType: "json",
   });
 };
@@ -60,7 +60,7 @@ export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
 export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaModel> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/get-doc-info.php`,
+    url: `http://127.0.0.3:8080/doc-server/doc-meta.php`,
     params: {
       id: docId,
     },
@@ -71,7 +71,7 @@ export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaM
 export const fetchDocModelTextData = (docId?: string[]|string): AxiosPromise<string> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/get-doc-model-text.php`,
+    url: `http://127.0.0.3:8080/doc-server/doc-model-text.php`,
     params: {
       id: docId,
     },
@@ -84,7 +84,7 @@ export const fetchNextContentData = (
 ): AxiosPromise<NextContentModel> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/get-next-content.php`,
+    url: `http://127.0.0.3:8080/doc-server/next-content.php`,
     params: {
       outset: outset,
     },

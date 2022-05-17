@@ -1,34 +1,34 @@
+import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import {
-  Button,
-  Form,
-  ToggleButton,
-  ToggleButtonGroup
-  } from 'react-bootstrap';
-import { DocCheckerType, fetchCheckedDocsList } from '../slices/DocsCheckerSlice';
-import { useAppDispatch } from '../store';
-import { useRef, useState } from 'react';
+  DocCheckerType,
+  fetchCheckedDocsList,
+} from "../slices/DocsCheckerSlice";
+import { useAppDispatch } from "../store";
+import { useRef, useState } from "react";
 
 function CheckBroad(props: { tags: string[] }) {
-  const [keyword_input, set_keyword_input] = useState<string>("");
-  const [tags_input, set_tags_input] = useState([]);
-  const filter = useRef<DocCheckerType>({
+  const [keyword_state, set_keyword_state] = useState<string>("");
+  const [tags_state, set_tags_state] = useState([]);
+
+  const checker = useRef<DocCheckerType>({
     keyword: [],
     tags: [],
   });
 
   const dispatch = useAppDispatch();
+
   const handleKeywordChange = (e: any) => {
-    set_keyword_input(e.target.value);
-    filter.current.keyword = e.target.value?.split(",");
+    set_keyword_state(e.target.value);
+    checker.current.keyword = e.target.value?.split(",");
   };
 
   const handleTagsChange = (val: any) => {
-    set_tags_input(val);
-    filter.current.tags = val;
+    set_tags_state(val);
+    checker.current.tags = val;
   };
 
   const checkLoad = () => {
-    dispatch(fetchCheckedDocsList());
+    dispatch(fetchCheckedDocsList("aaa"));
   };
 
   return (
@@ -37,7 +37,7 @@ function CheckBroad(props: { tags: string[] }) {
         type="search"
         className="rounded-pill shadow-none"
         placeholder="Input Keywords Here..."
-        value={keyword_input}
+        value={keyword_state}
         onChange={handleKeywordChange}
       />
       <div className=" tw-flex tw-justify-center tw-my-4">
@@ -52,7 +52,7 @@ function CheckBroad(props: { tags: string[] }) {
       <ToggleButtonGroup
         type="checkbox"
         bsPrefix=" tw-flex tw-justify-center tw-my-3 tw-flex-wrap"
-        value={tags_input}
+        value={tags_state}
         onChange={handleTagsChange}
       >
         {props.tags.map((item, index) => {

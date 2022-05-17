@@ -5,8 +5,8 @@ export default function PinnedListBroad(props: { list: PinnedListModel }) {
   return (
     <Card className="tw-border tw-rounded-2xl tw-my-6">
       <Card.Body>
-        <span>
-          <RiPushpinFill className="tw-inline" size={"1em"} />
+        <span className=" tw-text-2xl tw-font-bold tw-flex tw-justify-center">
+          <RiPushpinFill className="tw-inline tw-mx-2" size={"1em"} />
           {"Pinned"}
         </span>
         <ListGroup as="ol" className="tw-my-3 tw-px-0" numbered variant="flush">

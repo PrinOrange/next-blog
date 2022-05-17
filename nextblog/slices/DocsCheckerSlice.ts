@@ -12,7 +12,8 @@ export const InitialDocsList: DocsListModel = [];
 
 export const fetchCheckedDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
-  async () => {
+  async (para:string) => {
+    console.log(para)
     return (
       await axios({
         method: "GET",
