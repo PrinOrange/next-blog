@@ -1,5 +1,6 @@
 import AboutMe from "../views/AboutMe";
 import Affix from "../components/Affix";
+import classNames from "classnames";
 import DocsList from "../views/DocsList";
 import FireworkCanvas from "../components/FireworkCanvas";
 import Friends from "../views/Friends";
@@ -10,6 +11,7 @@ import OfficeInfo from "../views/OfficeInfo";
 import PinnedListBroad from "../views/PinnedList";
 import SocialBlock from "../views/SocialBlock";
 import { AboutMeModel } from "../model/AboutMeModel";
+import { Button, Modal, SSRProvider } from "react-bootstrap";
 import { DocsListModel } from "../model/DocsListModel";
 import {
   fetchAboutmeData,
@@ -22,9 +24,9 @@ import {
 import { FriendListModel } from "../model/FriendListModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";
-import { SSRProvider } from "react-bootstrap";
+import { useState } from "react";
 import type { GetServerSideProps } from "next";
-import classNames from "classnames";
+import { fetchHomeDocsListLoadMore } from "../api-ajax/CSR-ajax";
 
 function Home(props: {
   fetchedAboutmeData: AboutMeModel;
@@ -34,6 +36,26 @@ function Home(props: {
   fetchedFirstLoadDocsListData: DocsListModel;
   fetchedFilterTagsData: string[];
 }) {
+  const [docs_list, set_docs_list] = useState(
+    props.fetchedFirstLoadDocsListData
+  );
+  const [modal_show, set_modal_show] = useState({ text: "", show: false });
+
+  const handleModalClose = () => {
+    set_modal_show({ text: undefined!, show: false });
+  };
+
+  const handleLoadMore = async () => {
+    const loaded_data = (
+      await fetchHomeDocsListLoadMore(docs_list[docs_list.length - 1].postDate)
+    ).data;
+    if (loaded_data.length !== 0) {
+      set_docs_list([...docs_list, ...loaded_data]);
+    } else {
+      set_modal_show({ text: "加载已经到底了！", show: true });
+    }
+  };
+
   return (
     <SSRProvider>
       <div className=" tw-select-none ">
@@ -70,7 +92,7 @@ function Home(props: {
               badges={props.fetchedAboutmeData.badges}
               quote={props.fetchedAboutmeData.quote}
             />
-            <Affix direction="top" space={50}>
+            <Affix direction="top" space={50} >
               <PinnedListBroad list={props.fetchedPinnedListData} />
             </Affix>
           </div>
@@ -82,14 +104,19 @@ function Home(props: {
               "lg:tw-col-span-2"
             )}
           >
-            <Affix direction={"top"} space={0}>
+            <Affix direction={"top"} space={0} topped={true}>
               <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
                 <NavLink content={"Home"} checked={true} href="/" />
                 <NavLink content={"Docs"} checked={false} href="/docs" />
                 <NavLink content={"About"} checked={false} href="/about" />
               </nav>
             </Affix>
-            <DocsList list={props.fetchedFirstLoadDocsListData} />
+            <DocsList list={docs_list} />
+            <div className=" tw-my-4 tw-flex tw-justify-center">
+              <Button className="shadow-none" as="div" onClick={handleLoadMore}>
+                {"加载更多"}
+              </Button>
+            </div>
           </div>
           <div
             className={classNames(
@@ -117,6 +144,14 @@ function Home(props: {
           </div>
         </main>
       </div>
+      <Modal show={modal_show.show} onHide={handleModalClose} centered>
+        <Modal.Body>{modal_show.text}</Modal.Body>
+        <Modal.Footer>
+          <Button as="div" variant="primary" onClick={handleModalClose}>
+            {"关闭"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </SSRProvider>
   );
 }

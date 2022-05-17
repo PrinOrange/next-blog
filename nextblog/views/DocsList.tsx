@@ -8,9 +8,8 @@ export default function DocsList(props: {
 }) {
   console.log(props.list)
   return (
-    <div>
-      <ListGroup>
-        {props.list.map((item, index) => (
+      <ListGroup >
+        {props.list.map((item) => (
           <a href={`/docs/${item.id}`} key={`doclist-${item.id}`}>
             <ListGroup.Item
               action
@@ -46,6 +45,5 @@ export default function DocsList(props: {
           </a>
         ))}
       </ListGroup>
-    </div>
   );
 }

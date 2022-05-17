@@ -16,3 +16,16 @@ export const fetchCheckedDocsList = (
     responseType: "json",
   });
 };
+
+export const fetchHomeDocsListLoadMore = (
+  outset:string
+): AxiosPromise<DocsListModel> => {
+  return axios({
+    method: "GET",
+    url: "http://127.0.0.3:8080/doc-server/home-list.php",
+    params: {
+      outset:outset
+    },
+    responseType: "json",
+  });
+};

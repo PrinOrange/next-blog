@@ -13,17 +13,21 @@ import {
 import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
 import { selectDocsList } from "../../slices/DocsCheckerSlice";
-import { SSRProvider } from "react-bootstrap";
+import { Button, SSRProvider } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { DocsListModel } from "../../model/DocsListModel";
 import Header from "../../views/HeaderLOGO";
+import { fetchHomeDocsListLoadMore } from "../../api-ajax/CSR-ajax";
 
 function Docs(props: {
   fetchedFilterTagsData: string[];
   fetchedPinnedListData: PinnedListModel;
 }) {
   const list = useSelector<DocsListModel, DocsListModel>(selectDocsList);
-  console.log(list);
+
+  const handleLoadMore = () => {
+
+  };
 
   return (
     <SSRProvider>
@@ -72,10 +76,14 @@ function Docs(props: {
               "lg:tw-col-span-2",
               "tw-border-l",
               "tw-border-r",
-              "tw-px-4"
             )}
           >
             <DocsList list={list} />
+            <div className=" tw-my-4 tw-flex tw-justify-center">
+              <Button className="shadow-none" as="div">
+                {"加载更多"}
+              </Button>
+            </div>
           </div>
           <div
             className={classNames(

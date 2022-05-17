@@ -28,7 +28,7 @@ function CheckBroad(props: { tags: string[] }) {
   };
 
   const checkLoad = () => {
-    dispatch(fetchCheckedDocsList("aaa"));
+    dispatch(fetchCheckedDocsList({}));
   };
 
   return (

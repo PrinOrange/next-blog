@@ -12,13 +12,14 @@ export const InitialDocsList: DocsListModel = [];
 
 export const fetchCheckedDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
-  async (para:string) => {
-    console.log(para)
+  async (para: DocCheckerType) => {
+    console.log(para);
     return (
       await axios({
         method: "GET",
-        url: `http://127.0.0.3:8080/doc-server/get-home-list.php`,
+        url: `http://127.0.0.3:8080/doc-server/home-list.php`,
         responseType: "json",
+        params: para,
       })
     ).data;
   }
@@ -29,7 +30,10 @@ export const DocsCheckerSlice = createSlice({
   initialState: InitialDocsList,
   reducers: {},
   extraReducers: {
-    [fetchCheckedDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
+    [fetchCheckedDocsList.fulfilled as any]: (
+      state: DocsListModel,
+      action: any
+    ) => {
       return [...state, ...action.payload];
     },
   },
