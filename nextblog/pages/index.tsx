@@ -104,7 +104,7 @@ function Home(props: {
               "lg:tw-col-span-2"
             )}
           >
-            <Affix direction={"top"} space={0} topped={true}>
+            <Affix direction={"top"} space={0} >
               <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
                 <NavLink content={"Home"} checked={true} href="/" />
                 <NavLink content={"Docs"} checked={false} href="/docs" />
