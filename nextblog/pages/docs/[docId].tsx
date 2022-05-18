@@ -51,6 +51,10 @@ const Docs = (props: {
     set_catalog_drawer_show(true);
   };
 
+  const handleBackForward = ()=>{
+    window.history.go(-1);
+  }
+
   return (
     <SSRProvider>
       <div className=" tw-select-none ">
@@ -67,12 +71,12 @@ const Docs = (props: {
         <Affix direction={"top"} space={0} topped>
           <nav className=" tw-flex tw-justify-between tw-py-2 tw-border-b tw-bg-white">
             <FaListAlt
-              className="tw-mx-5 tw-my-2"
+              className="tw-mx-5 tw-my-2 tw-cursor-pointer"
               size={"2em"}
               onClick={handleCatalogDrawerOpen}
             />
             <Header />
-            <RiArrowGoBackFill className="tw-mx-5 tw-my-2" size={"2em"} />
+            <RiArrowGoBackFill className="tw-mx-5 tw-my-2 tw-cursor-pointer" size={"2em"} onClick={handleBackForward} />
           </nav>
         </Affix>
         <main
@@ -134,9 +138,9 @@ const Docs = (props: {
           </div>
         </main>
       </div>
-      <Offcanvas show={catalog_drawer_show} onHide={handleCatalogDrawerClose} >
+      <Offcanvas show={catalog_drawer_show} onHide={handleCatalogDrawerClose} onBlur={handleCatalogDrawerClose} >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Catalog</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <CatalogDrawer mapId={reader_id} />

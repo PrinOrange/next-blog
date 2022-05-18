@@ -6,7 +6,7 @@ export default function CatalogDrawer(props: { mapId: string }) {
       <div className="tw-my-2 tw-text-xl tw-font-bold tw-text-center">
         {"Catalog"}
       </div>
-      <div className="tw-overflow-y-auto e" style={{ maxHeight: 450 }}>
+      <div className="tw-overflow-y-auto ">
         <Editor.Catalog
           editorId={props.mapId}
           scrollElement={document.documentElement!}
