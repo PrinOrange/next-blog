@@ -4,9 +4,11 @@ import DocMeta from "../../views/MetaInfo";
 import dynamic from "next/dynamic";
 import FireworkCanvas from "../../components/FireworkCanvas";
 import Head from "next/head";
+import Header from "../../views/HeaderLOGO";
 import NextContent from "../../views/NextContent";
 import Reader from "../../views/Reader";
 import { DocMetaModel } from "../../model/DocMetaModel";
+import { FaListAlt } from "react-icons/fa";
 import {
   fetchDocMetaData,
   fetchDocModelTextData,
@@ -15,14 +17,19 @@ import {
 import { GetServerSideProps } from "next";
 import { MetaSEOModel } from "../../model/SEOModel";
 import { NextContentModel } from "../../model/NextContentModel";
-import { SSRProvider } from "react-bootstrap";
+import { Offcanvas, SSRProvider } from "react-bootstrap";
+import { RiArrowGoBackFill } from "react-icons/ri";
+import { useState } from "react";
 import "md-editor-rt/lib/style.css";
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
  * 因为在服务端渲染时，目录组件无法在Node环境下映射到编辑器组件。
  */
-const DocCatalog = dynamic(() => import("../../views/CatalogBlock"), {
+const CatalogBlock = dynamic(() => import("../../views/CatalogBlock"), {
+  ssr: false,
+});
+const CatalogDrawer = dynamic(() => import("../../views/CatalogDrawer"), {
   ssr: false,
 });
 
@@ -33,6 +40,17 @@ const Docs = (props: {
   fetchedNextContentData: NextContentModel;
 }) => {
   const reader_id = "MARKDOWN-READER";
+
+  const [catalog_drawer_show, set_catalog_drawer_show] = useState(false);
+
+  const handleCatalogDrawerClose = () => {
+    set_catalog_drawer_show(false);
+  };
+
+  const handleCatalogDrawerOpen = () => {
+    set_catalog_drawer_show(true);
+  };
+
   return (
     <SSRProvider>
       <div className=" tw-select-none ">
@@ -46,7 +64,17 @@ const Docs = (props: {
           <meta name="keyword" content={props.fetchedSEOConfigData.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Affix direction={"top"} space={0}></Affix>
+        <Affix direction={"top"} space={0} topped>
+          <nav className=" tw-flex tw-justify-between tw-py-2 tw-border-b tw-bg-white">
+            <FaListAlt
+              className="tw-mx-5 tw-my-2"
+              size={"2em"}
+              onClick={handleCatalogDrawerOpen}
+            />
+            <Header />
+            <RiArrowGoBackFill className="tw-mx-5 tw-my-2" size={"2em"} />
+          </nav>
+        </Affix>
         <main
           className={classNames(
             "tw-mx-auto",
@@ -69,7 +97,7 @@ const Docs = (props: {
           >
             <DocMeta {...props.fetchedDocMetaData} />
             <Affix direction={"top"} space={90}>
-              <DocCatalog mapId={reader_id} />
+              <CatalogBlock mapId={reader_id} />
             </Affix>
           </div>
           <div
@@ -81,7 +109,8 @@ const Docs = (props: {
               "md:tw-order-2",
               "tw-border-l",
               "tw-border-r",
-              "tw-px-4"
+              "tw-px-4",
+              "tw-z-0"
             )}
           >
             <Reader
@@ -105,6 +134,14 @@ const Docs = (props: {
           </div>
         </main>
       </div>
+      <Offcanvas show={catalog_drawer_show} onHide={handleCatalogDrawerClose} >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <CatalogDrawer mapId={reader_id} />
+        </Offcanvas.Body>
+      </Offcanvas>
     </SSRProvider>
   );
 };

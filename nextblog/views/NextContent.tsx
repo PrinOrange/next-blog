@@ -23,7 +23,7 @@ export default function NextContent(props: { list: NextContentModel }) {
                 className="d-flex justify-content-between align-items-start tw-cursor-pointer"
                 action
               >
-                <a>
+                <a href={`/docs/${item.id}`} className="hover:tw-text-inherit">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">{item.title}</div>
                     {item.subtitle}
