@@ -5,7 +5,6 @@ export default function DocsList(props: {
   list: DocsListModel;
   showLoading?: boolean;
 }) {
-
   return (
     <div>
       {props.list.map((item) => (

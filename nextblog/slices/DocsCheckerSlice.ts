@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DocsListModel } from "../model/DocsListModel";
+import { fetchFirstLoadDocsListData } from "../api-ajax/SSR-ajax";
 
 export interface DocCheckerType {
   keyword?: string[];
@@ -8,7 +9,7 @@ export interface DocCheckerType {
   outset?: string;
 }
 
-export const InitialDocsList: DocsListModel = [];
+export const InitialDocsList: DocsListModel = (await fetchFirstLoadDocsListData()).data;
 
 export const fetchCheckedDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
@@ -43,5 +44,4 @@ export const selectDocsList = (states: any) => {
   return states.DocsChecker;
 };
 
-// export const {} = DocsCheckerSlice.actions;
 export default DocsCheckerSlice.reducer;
