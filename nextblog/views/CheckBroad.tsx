@@ -3,7 +3,7 @@ import {
   DocCheckerType,
   fetchCheckedDocsList,
 } from "../slices/DocsCheckerSlice";
-import { useAppDispatch } from "../store";
+import { useAppDispatch } from "../pages/_store";
 import { useRef, useState } from "react";
 
 function CheckBroad(props: { tags: string[] }) {
