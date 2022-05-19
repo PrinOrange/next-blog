@@ -17,9 +17,10 @@ import {
 import { GetServerSideProps } from "next";
 import { MetaSEOModel } from "../../model/SEOModel";
 import { NextContentModel } from "../../model/NextContentModel";
-import { Offcanvas, SSRProvider } from "react-bootstrap";
+import { Button, Offcanvas, SSRProvider } from "react-bootstrap";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { useState } from "react";
+import {GrClose} from 'react-icons/gr'
 import "md-editor-rt/lib/style.css";
 
 /*
@@ -45,15 +46,16 @@ const Docs = (props: {
 
   const handleCatalogDrawerClose = () => {
     set_catalog_drawer_show(false);
+    console.log('hi')
   };
 
   const handleCatalogDrawerOpen = () => {
     set_catalog_drawer_show(true);
   };
 
-  const handleBackForward = ()=>{
+  const handleBackForward = () => {
     window.history.go(-1);
-  }
+  };
 
   return (
     <SSRProvider>
@@ -76,7 +78,11 @@ const Docs = (props: {
               onClick={handleCatalogDrawerOpen}
             />
             <Header />
-            <RiArrowGoBackFill className="tw-mx-5 tw-my-2 tw-cursor-pointer" size={"2em"} onClick={handleBackForward} />
+            <RiArrowGoBackFill
+              className="tw-mx-5 tw-my-2 tw-cursor-pointer"
+              size={"2em"}
+              onClick={handleBackForward}
+            />
           </nav>
         </Affix>
         <main
@@ -138,12 +144,19 @@ const Docs = (props: {
           </div>
         </main>
       </div>
-      <Offcanvas show={catalog_drawer_show} onHide={handleCatalogDrawerClose} onBlur={handleCatalogDrawerClose} >
+      <Offcanvas
+        show={catalog_drawer_show}
+        onHide={handleCatalogDrawerClose}
+        autoFocus={false}
+      >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Catalog</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <CatalogDrawer mapId={reader_id} />
+          <div className=" tw-flex tw-justify-end">
+            <GrClose className="tw-px-2 tw-py-2 tw-cursor-pointer" size="3em" onClick={handleCatalogDrawerClose}/>
+          </div>
+          <CatalogDrawer mapId={reader_id} onClick={handleCatalogDrawerClose} />
         </Offcanvas.Body>
       </Offcanvas>
     </SSRProvider>
