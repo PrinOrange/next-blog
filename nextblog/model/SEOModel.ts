@@ -4,4 +4,5 @@ export interface MetaSEOModel {
   keywords?: string;
   description?: string;
   revisitAfter?: string;
+  copyright?:string;
 }

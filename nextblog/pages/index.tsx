@@ -36,19 +36,19 @@ function Home(props: {
   fetchedFirstLoadDocsListData: DocsListModel;
   fetchedFilterTagsData: string[];
 }) {
-  const [docs_list, set_docs_list] = useState(
-    props.fetchedFirstLoadDocsListData
-  );
+  const [docs_list, set_docs_list] = useState(props.fetchedFirstLoadDocsListData);
   const [modal_show, set_modal_show] = useState({ text: "", show: false });
 
   const handleModalClose = () => {
-    set_modal_show({ text: undefined!, show: false });
+    set_modal_show({
+      text: undefined!,
+      show: false,
+    });
   };
 
   const handleLoadMore = async () => {
-    const loaded_data = (
-      await fetchHomeDocsListLoadMore(docs_list[docs_list.length - 1].postDate)
-    ).data;
+    const loaded_data = (await fetchHomeDocsListLoadMore(docs_list[docs_list.length - 1].postDate))
+      .data;
     if (loaded_data.length !== 0) {
       set_docs_list([...docs_list, ...loaded_data]);
     } else {
@@ -76,13 +76,7 @@ function Home(props: {
             "tw-subpixel-antialiased"
           )}
         >
-          <div
-            className={classNames(
-              "tw-px-5",
-              "md:tw-col-span-1",
-              "lg:tw-col-span-1"
-            )}
-          >
+          <div className={classNames("tw-px-5", "md:tw-col-span-1", "lg:tw-col-span-1")}>
             <header className=" tw-mt-6">
               <Header />
             </header>
@@ -92,7 +86,7 @@ function Home(props: {
               badges={props.fetchedAboutmeData.badges}
               quote={props.fetchedAboutmeData.quote}
             />
-            <Affix direction="top" space={50} >
+            <Affix direction="top" space={50}>
               <PinnedListBroad list={props.fetchedPinnedListData} />
             </Affix>
           </div>
@@ -104,7 +98,7 @@ function Home(props: {
               "lg:tw-col-span-2"
             )}
           >
-            <Affix direction={"top"} space={0} >
+            <Affix direction={"top"} space={0}>
               <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
                 <NavLink content={"Home"} checked={true} href="/" />
                 <NavLink content={"Docs"} checked={false} href="/docs" />
@@ -114,18 +108,11 @@ function Home(props: {
             <DocsList list={docs_list} />
             <div className=" tw-my-4 tw-flex tw-justify-center">
               <Button className="shadow-none" as="div" onClick={handleLoadMore}>
-                {"加载更多"}
+                {"加载更多"}{" "}
               </Button>
             </div>
           </div>
-          <div
-            className={classNames(
-              "tw-pt-4",
-              "tw-px-5",
-              "md:tw-col-span-3",
-              "lg:tw-col-span-1"
-            )}
-          >
+          <div className={classNames("tw-pt-4", "tw-px-5", "md:tw-col-span-3", "lg:tw-col-span-1")}>
             <Friends list={props.fetchedFriendListData} />
             <OfficeInfo
               icp={props.fetchedOfficeInfoData.icp}
@@ -148,7 +135,7 @@ function Home(props: {
         <Modal.Body>{modal_show.text}</Modal.Body>
         <Modal.Footer>
           <Button as="div" variant="primary" onClick={handleModalClose}>
-            {"关闭"}
+            {"关闭"}{" "}
           </Button>
         </Modal.Footer>
       </Modal>

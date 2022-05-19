@@ -31,10 +31,7 @@ export const DocsCheckerSlice = createSlice({
   initialState: InitialDocsList,
   reducers: {},
   extraReducers: {
-    [fetchCheckedDocsList.fulfilled as any]: (
-      state: DocsListModel,
-      action: any
-    ) => {
+    [fetchCheckedDocsList.fulfilled as any]: (state: DocsListModel, action: any) => {
       return [...state, ...action.payload];
     },
   },
