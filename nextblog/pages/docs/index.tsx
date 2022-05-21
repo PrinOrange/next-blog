@@ -1,32 +1,41 @@
-import Affix from "../../components/Affix";
-import CheckBroad from "../../views/CheckBroad";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 import classNames from "classnames";
-import DocsList from "../../views/DocsList";
-import FireworkCanvas from "../../components/FireworkCanvas";
-import Head from "next/head";
-import NavLink from "../../components/NavLink";
-import PinnedListBroad from "../../views/PinnedList";
-import {
-  fetchFilterTagsData,
-  fetchPinnedListData,
-} from "../../api-ajax/SSR-ajax";
 import { GetServerSideProps } from "next";
-import { PinnedListModel } from "../../model/PinnedListModel";
-import { selectDocsList } from "../../slices/DocsCheckerSlice";
+import Head from "next/head";
 import { Button, SSRProvider } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { DocsListModel } from "../../model/DocsListModel";
+import { fetchFilterTagsData, fetchPinnedListData } from "../../api-ajax/SSR-ajax";
+import Affix from "../../components/Affix";
+import FireworkCanvas from "../../components/FireworkCanvas";
+import NavLink from "../../components/NavLink";
+import { PinnedListModel } from "../../model/PinnedListModel";
+import {
+  cleanList,
+  DocsCheckerFilter,
+  DocsCheckerState,
+  fetchCheckedDocsList,
+  selectCheckerState
+} from "../../slices/DocsCheckerSlice";
+import CheckBroad from "../../views/CheckBroad";
+import DocsList from "../../views/DocsList";
 import Header from "../../views/HeaderLOGO";
-import { fetchHomeDocsListLoadMore } from "../../api-ajax/CSR-ajax";
+import PinnedListBroad from "../../views/PinnedList";
+import { useAppDispatch } from "../_store";
 
-function Docs(props: {
-  fetchedFilterTagsData: string[];
-  fetchedPinnedListData: PinnedListModel;
-}) {
-  const list = useSelector<DocsListModel, DocsListModel>(selectDocsList);
-
+function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: PinnedListModel }) {
+  const checker_state = useSelector<DocsCheckerState, DocsCheckerState>(selectCheckerState);
+  const dispatch = useAppDispatch();
   const handleLoadMore = () => {
-
+    console.log(checker_state.filter.tags);
+    
+    dispatch(
+      fetchCheckedDocsList({
+        tags: checker_state.filter.tags,
+        keyword: checker_state.filter.keyword,
+        outset: checker_state.list[checker_state.list.length - 1].postDate,
+      })
+    );
+    console.log(checker_state.list[checker_state.list.length - 1].postDate);
   };
 
   return (
@@ -56,13 +65,7 @@ function Docs(props: {
             "tw-subpixel-antialiased"
           )}
         >
-          <div
-            className={classNames(
-              "tw-col-span-1",
-              "lg:tw-col-span-1",
-              "tw-px-5"
-            )}
-          >
+          <div className={classNames("tw-col-span-1", "lg:tw-col-span-1", "tw-px-5")}>
             <header className=" tw-mt-6">
               <Header />
             </header>
@@ -75,12 +78,12 @@ function Docs(props: {
               "tw-col-span-1",
               "lg:tw-col-span-2",
               "tw-border-l",
-              "tw-border-r",
+              "tw-border-r"
             )}
           >
-            <DocsList list={list} />
+            <DocsList list={checker_state.list} />
             <div className=" tw-my-4 tw-flex tw-justify-center">
-              <Button className="shadow-none" as="div">
+              <Button className="shadow-none" as="div" onClick={handleLoadMore}>
                 {"加载更多"}
               </Button>
             </div>
@@ -113,3 +116,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Docs;
+function dispatch(
+  arg0: AsyncThunkAction<{ list: any; filter: DocsCheckerFilter }, DocsCheckerFilter, {}>
+) {
+  throw new Error("Function not implemented.");
+}

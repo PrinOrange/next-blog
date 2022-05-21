@@ -1,9 +1,9 @@
 import axios, { AxiosPromise } from "axios";
 import { DocsListModel } from "../model/DocsListModel";
-import { DocCheckerType } from "../slices/DocsCheckerSlice";
+import { DocsCheckerFilter } from "../slices/DocsCheckerSlice";
 
 export const fetchCheckedDocsList = (
-  filter: DocCheckerType
+  filter: DocsCheckerFilter
 ): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",

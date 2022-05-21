@@ -1,27 +1,27 @@
-import Affix from "../../components/Affix";
 import classNames from "classnames";
-import DocMeta from "../../views/MetaInfo";
+import "md-editor-rt/lib/style.css";
+import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
-import FireworkCanvas from "../../components/FireworkCanvas";
 import Head from "next/head";
-import Header from "../../views/HeaderLOGO";
-import NextContent from "../../views/NextContent";
-import Reader from "../../views/Reader";
-import { DocMetaModel } from "../../model/DocMetaModel";
+import { useState } from "react";
+import { Offcanvas, SSRProvider } from "react-bootstrap";
 import { FaListAlt } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
+import { RiArrowGoBackFill } from "react-icons/ri";
 import {
   fetchDocMetaData,
   fetchDocModelTextData,
-  fetchNextContentData,
+  fetchNextContentData
 } from "../../api-ajax/SSR-ajax";
-import { GetServerSideProps } from "next";
-import { MetaSEOModel } from "../../model/SEOModel";
+import Affix from "../../components/Affix";
+import FireworkCanvas from "../../components/FireworkCanvas";
+import { DocMetaModel } from "../../model/DocMetaModel";
 import { NextContentModel } from "../../model/NextContentModel";
-import { Button, Offcanvas, SSRProvider } from "react-bootstrap";
-import { RiArrowGoBackFill } from "react-icons/ri";
-import { useState } from "react";
-import {GrClose} from 'react-icons/gr'
-import "md-editor-rt/lib/style.css";
+import { MetaSEOModel } from "../../model/SEOModel";
+import Header from "../../views/HeaderLOGO";
+import DocMeta from "../../views/MetaInfo";
+import NextContent from "../../views/NextContent";
+import Reader from "../../views/Reader";
 
 /*
  * 为了实现点击目录自动滚动的功能，目录组件需要客户端渲染。
@@ -46,7 +46,7 @@ const Docs = (props: {
 
   const handleCatalogDrawerClose = () => {
     set_catalog_drawer_show(false);
-    console.log('hi')
+    console.log("hi");
   };
 
   const handleCatalogDrawerOpen = () => {
@@ -63,32 +63,41 @@ const Docs = (props: {
         <FireworkCanvas />
         <Head>
           <title>{props.fetchedSEOConfigData.title}</title>
-          <meta
-            name="description"
-            content={props.fetchedSEOConfigData.description}
-          />
+          <meta name="description" content={props.fetchedSEOConfigData.description} />
           <meta name="keyword" content={props.fetchedSEOConfigData.keywords} />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Affix direction={"top"} space={0} topped>
-          <nav className=" tw-flex tw-justify-between tw-py-2 tw-border-b tw-bg-white">
-            <FaListAlt
-              className="tw-mx-5 tw-my-2 tw-cursor-pointer"
-              size={"2em"}
-              onClick={handleCatalogDrawerOpen}
-            />
-            <Header />
-            <RiArrowGoBackFill
-              className="tw-mx-5 tw-my-2 tw-cursor-pointer"
-              size={"2em"}
-              onClick={handleBackForward}
-            />
-          </nav>
-        </Affix>
+        <nav
+          className={classNames(
+            "tw-flex",
+            "tw-justify-between",
+            "tw-py-1",
+            "tw-border-b",
+            "tw-bg-white",
+            "tw-top-0",
+            "tw-fixed",
+            "tw-w-full",
+            "tw-z-10"
+          )}
+        >
+          <FaListAlt
+            className="tw-mx-5 tw-my-2 tw-cursor-pointer"
+            size={"2em"}
+            onClick={handleCatalogDrawerOpen}
+          />
+          <Header />
+          <RiArrowGoBackFill
+            className="tw-mx-5 tw-my-2 tw-cursor-pointer"
+            size={"2em"}
+            onClick={handleBackForward}
+          />
+        </nav>
+
         <main
           className={classNames(
             "tw-mx-auto",
             "tw-grid",
+            "tw-my-14",
             "tw-grid-cols-1",
             "tw-grid-flow-row",
             "md:tw-grid-cols-3",
@@ -144,17 +153,14 @@ const Docs = (props: {
           </div>
         </main>
       </div>
-      <Offcanvas
-        show={catalog_drawer_show}
-        onHide={handleCatalogDrawerClose}
-        autoFocus={false}
-      >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Catalog</Offcanvas.Title>
-        </Offcanvas.Header>
+      <Offcanvas show={catalog_drawer_show} onHide={handleCatalogDrawerClose} autoFocus={false}>
         <Offcanvas.Body>
           <div className=" tw-flex tw-justify-end">
-            <GrClose className="tw-px-2 tw-py-2 tw-cursor-pointer" size="3em" onClick={handleCatalogDrawerClose}/>
+            <GrClose
+              className="tw-px-2 tw-py-2 tw-cursor-pointer"
+              size="3em"
+              onClick={handleCatalogDrawerClose}
+            />
           </div>
           <CatalogDrawer mapId={reader_id} onClick={handleCatalogDrawerClose} />
         </Offcanvas.Body>
@@ -173,19 +179,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   };
 
-  const _fetchedDocMetaData = (await fetchDocMetaData(context.params?.docId))
-    .data;
-  const _fetchedNextContentData = (
-    await fetchNextContentData(_fetchedDocMetaData.postDate)
-  ).data;
+  const _fetchedDocMetaData = (await fetchDocMetaData(context.params?.docId)).data;
+  const _fetchedNextContentData = (await fetchNextContentData(_fetchedDocMetaData.postDate)).data;
   const _fetchedSEOConfigData = makeSEOConfig(_fetchedDocMetaData);
 
   return {
     props: {
       fetchedDocMetaData: _fetchedDocMetaData,
-      fetchedDocModelTextData: (
-        await fetchDocModelTextData(context.params?.docId)
-      ).data,
+      fetchedDocModelTextData: (await fetchDocModelTextData(context.params?.docId)).data,
       fetchedNextContentData: _fetchedNextContentData,
       fetchedSEOConfigData: _fetchedSEOConfigData,
     },

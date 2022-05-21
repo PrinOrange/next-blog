@@ -1,18 +1,16 @@
-import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import {
-  DocCheckerType,
-  fetchCheckedDocsList,
-} from "../slices/DocsCheckerSlice";
-import { useAppDispatch } from "../pages/_store";
 import { useRef, useState } from "react";
+import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { useAppDispatch } from "../pages/_store";
+import { cleanList, DocsCheckerFilter, fetchCheckedDocsList } from "../slices/DocsCheckerSlice";
 
 function CheckBroad(props: { tags: string[] }) {
   const [keyword_state, set_keyword_state] = useState<string>("");
-  const [tags_state, set_tags_state] = useState([]);
+  const [tags_state, set_tags_state] = useState<string>("");
 
-  const checker = useRef<DocCheckerType>({
-    keyword: [],
-    tags: [],
+  const checker = useRef<DocsCheckerFilter>({
+    keyword: "",
+    tags: "",
+    outset: "",
   });
 
   const dispatch = useAppDispatch();
@@ -23,12 +21,18 @@ function CheckBroad(props: { tags: string[] }) {
   };
 
   const handleTagsChange = (val: any) => {
-    set_tags_state(val);
-    checker.current.tags = val;
+    set_tags_state(val.join(","));
+    checker.current.tags = val.join(",");
   };
 
   const checkLoad = () => {
-    dispatch(fetchCheckedDocsList({}));
+    dispatch(cleanList());
+    dispatch(
+      fetchCheckedDocsList({
+        tags: tags_state,
+        keyword: keyword_state,
+      })
+    );
   };
 
   return (
@@ -52,7 +56,7 @@ function CheckBroad(props: { tags: string[] }) {
       <ToggleButtonGroup
         type="checkbox"
         bsPrefix=" tw-flex tw-justify-center tw-my-3 tw-flex-wrap"
-        value={tags_state}
+        value={tags_state.split(",")}
         onChange={handleTagsChange}
       >
         {props.tags.map((item, index) => {
