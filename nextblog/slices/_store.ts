@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import DocsCheckerReducers from "../slices/DocsCheckerSlice";
+import DocsCheckerReducers from "./DocsCheckerSlice";
 
 export const store = configureStore({
   reducer: {

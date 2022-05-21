@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { useAppDispatch } from "../pages/_store";
+import { useAppDispatch } from "../slices/_store";
 import { cleanCheckerListState, DocsCheckerFilter, fetchCheckedDocsList } from "../slices/DocsCheckerSlice";
 
 function CheckBroad(props: { tags: string[] }) {

@@ -11,7 +11,7 @@ import { Button, Modal, SSRProvider } from "react-bootstrap";
 import { fetchFilterTagsData, fetchPinnedListData } from "../../api-ajax/SSR-ajax";
 import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
-import { useAppDispatch } from "../_store";
+import { useAppDispatch } from "../../slices/_store";
 import { useSelector } from "react-redux";
 import {
   DocsCheckerState,
