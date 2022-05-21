@@ -1,33 +1,39 @@
-import { AsyncThunkAction } from "@reduxjs/toolkit";
-import classNames from "classnames";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import { Button, SSRProvider } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { fetchFilterTagsData, fetchPinnedListData } from "../../api-ajax/SSR-ajax";
 import Affix from "../../components/Affix";
+import CheckBroad from "../../views/CheckBroad";
+import classNames from "classnames";
+import DocsList from "../../views/DocsList";
 import FireworkCanvas from "../../components/FireworkCanvas";
+import Head from "next/head";
+import Header from "../../views/HeaderLOGO";
 import NavLink from "../../components/NavLink";
+import PinnedListBroad from "../../views/PinnedList";
+import { Button, Modal, SSRProvider } from "react-bootstrap";
+import { fetchFilterTagsData, fetchPinnedListData } from "../../api-ajax/SSR-ajax";
+import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
+import { useAppDispatch } from "../_store";
+import { useSelector } from "react-redux";
 import {
-  cleanList,
-  DocsCheckerFilter,
   DocsCheckerState,
   fetchCheckedDocsList,
-  selectCheckerState
+  selectCheckerState,
 } from "../../slices/DocsCheckerSlice";
-import CheckBroad from "../../views/CheckBroad";
-import DocsList from "../../views/DocsList";
-import Header from "../../views/HeaderLOGO";
-import PinnedListBroad from "../../views/PinnedList";
-import { useAppDispatch } from "../_store";
+import { useEffect, useRef, useState } from "react";
 
 function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: PinnedListModel }) {
-  const checker_state = useSelector<DocsCheckerState, DocsCheckerState>(selectCheckerState);
   const dispatch = useAppDispatch();
+  const checker_state = useSelector<DocsCheckerState, DocsCheckerState>(selectCheckerState);
+  const last_list_count = useRef<number>(0);
+  const [modal_show, set_modal_show] = useState({ text: "", show: false });
+
+  const handleModalClose = () => {
+    set_modal_show({
+      text: undefined!,
+      show: false,
+    });
+  };
   const handleLoadMore = () => {
-    console.log(checker_state.filter.tags);
-    
+    last_list_count.current = checker_state.list.length;
     dispatch(
       fetchCheckedDocsList({
         tags: checker_state.filter.tags,
@@ -35,8 +41,15 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
         outset: checker_state.list[checker_state.list.length - 1].postDate,
       })
     );
-    console.log(checker_state.list[checker_state.list.length - 1].postDate);
   };
+  useEffect(() => {
+    if (
+      checker_state.list.length !== 0 &&
+      checker_state.list.length - last_list_count.current === 0
+    ) {
+      set_modal_show({ text: "加载已经到底了！", show: true });
+    }
+  }, [checker_state.list]);
 
   return (
     <SSRProvider>
@@ -102,6 +115,16 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
           </div>
         </main>
       </div>
+      <Modal show={modal_show.show} onHide={handleModalClose} centered>
+        <Modal.Body>
+          {modal_show.text}
+          <div className="d-flex justify-content-end">
+            <Button as="div" variant="primary" onClick={handleModalClose}>
+              {"关闭"}
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </SSRProvider>
   );
 }
@@ -116,8 +139,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default Docs;
-function dispatch(
-  arg0: AsyncThunkAction<{ list: any; filter: DocsCheckerFilter }, DocsCheckerFilter, {}>
-) {
-  throw new Error("Function not implemented.");
-}

@@ -97,7 +97,7 @@ const Docs = (props: {
           className={classNames(
             "tw-mx-auto",
             "tw-grid",
-            "tw-my-14",
+            "tw-mt-14",
             "tw-grid-cols-1",
             "tw-grid-flow-row",
             "md:tw-grid-cols-3",

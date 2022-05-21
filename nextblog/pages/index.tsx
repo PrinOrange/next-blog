@@ -132,12 +132,14 @@ function Home(props: {
         </main>
       </div>
       <Modal show={modal_show.show} onHide={handleModalClose} centered>
-        <Modal.Body>{modal_show.text}</Modal.Body>
-        <Modal.Footer>
-          <Button as="div" variant="primary" onClick={handleModalClose}>
-            {"关闭"}{" "}
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+          {modal_show.text}
+          <div className="d-flex justify-content-end">
+            <Button as="div" variant="primary" onClick={handleModalClose}>
+              {"关闭"}
+            </Button>
+          </div>
+        </Modal.Body>
       </Modal>
     </SSRProvider>
   );

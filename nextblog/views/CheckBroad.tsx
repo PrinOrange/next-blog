@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useAppDispatch } from "../pages/_store";
-import { cleanList, DocsCheckerFilter, fetchCheckedDocsList } from "../slices/DocsCheckerSlice";
+import { cleanCheckerListState, DocsCheckerFilter, fetchCheckedDocsList } from "../slices/DocsCheckerSlice";
 
 function CheckBroad(props: { tags: string[] }) {
   const [keyword_state, set_keyword_state] = useState<string>("");
   const [tags_state, set_tags_state] = useState<string>("");
 
-  const checker = useRef<DocsCheckerFilter>({
+  const filter_ref = useRef<DocsCheckerFilter>({
     keyword: "",
     tags: "",
     outset: "",
@@ -17,16 +17,16 @@ function CheckBroad(props: { tags: string[] }) {
 
   const handleKeywordChange = (e: any) => {
     set_keyword_state(e.target.value);
-    checker.current.keyword = e.target.value?.split(",");
+    filter_ref.current.keyword = e.target.value?.split(",");
   };
 
   const handleTagsChange = (val: any) => {
     set_tags_state(val.join(","));
-    checker.current.tags = val.join(",");
+    filter_ref.current.tags = val.join(",");
   };
 
   const checkLoad = () => {
-    dispatch(cleanList());
+    dispatch(cleanCheckerListState());
     dispatch(
       fetchCheckedDocsList({
         tags: tags_state,

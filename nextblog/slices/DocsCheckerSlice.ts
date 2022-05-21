@@ -15,7 +15,7 @@ export interface DocsCheckerState {
 }
 
 export const InitialDocsCheckerState: DocsCheckerState = {
-  list: (await fetchFirstLoadDocsListData()).data,
+  list: (await fetchFirstLoadDocsListData()).data ?? [],
   filter: {
     tags: "",
     keyword: "",
@@ -25,18 +25,17 @@ export const InitialDocsCheckerState: DocsCheckerState = {
 
 export const fetchCheckedDocsList = createAsyncThunk(
   "DocsChecker/fetchDocsList",
-  async (para: DocsCheckerFilter) => {
-    // console.log(para);
+  async (filter: DocsCheckerFilter) => {
     return {
       list: (
         await axios({
           method: "GET",
           url: `http://127.0.0.3:8080/doc-server/check-doc.php`,
           responseType: "json",
-          params: para,
+          params: filter,
         })
       ).data,
-      filter: para,
+      filter: filter,
     };
   }
 );
@@ -45,8 +44,7 @@ export const DocsCheckerSlice = createSlice({
   name: "DocsChecker",
   initialState: InitialDocsCheckerState,
   reducers: {
-    cleanList: (state: any):DocsCheckerState => {
-      console.log(state);
+    cleanCheckerListState: (state: DocsCheckerState): DocsCheckerState => {
       return {
         ...state,
         list: [],
@@ -55,8 +53,7 @@ export const DocsCheckerSlice = createSlice({
   },
   extraReducers: {
     [fetchCheckedDocsList.fulfilled as any]: (state: DocsCheckerState, action: any) => {
-      // console.log({ filter: action.payload.filter, list: [...action.payload.list] });
-      return { filter: action.payload.filter, list: [...state.list,...action.payload.list] };
+      return { filter: action.payload.filter, list: [...state.list, ...action.payload.list] };
     },
   },
 });
@@ -64,5 +61,5 @@ export const DocsCheckerSlice = createSlice({
 export const selectCheckerState = (states: any) => {
   return states.DocsChecker;
 };
-export const { cleanList } = DocsCheckerSlice.actions;
+export const { cleanCheckerListState } = DocsCheckerSlice.actions;
 export default DocsCheckerSlice.reducer;
