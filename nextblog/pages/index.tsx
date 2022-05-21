@@ -45,7 +45,6 @@ function Home(props: {
       show: false,
     });
   };
-
   const handleLoadMore = async () => {
     const loaded_data = (await fetchHomeDocsListLoadMore(docs_list[docs_list.length - 1].postDate))
       .data;
