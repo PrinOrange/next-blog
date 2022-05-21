@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { FaWeixin, FaQq, FaTwitter, FaGithub, FaWeibo } from "react-icons/fa";
 import { SiZhihu } from "react-icons/si";
 
@@ -9,11 +10,7 @@ export default function SocialIcons() {
   const [modal_show, set_modal_show] = useState<boolean>(false);
   return (
     <div className=" tw-flex tw-justify-center tw-flex-wrap tw-text-black">
-      <FaWeixin
-        className=" tw-cursor-pointer hover:tw-text-green-600 tw-mx-4"
-        onClick={() => set_modal_show(true)}
-        size="1.75em"
-      />
+      <FaWeixin className=" tw-cursor-pointer hover:tw-text-green-600 tw-mx-4" onClick={() => set_modal_show(true)} size="1.75em" />
       <a
         className=" tw-cursor-pointer hover:tw-text-blue-500 tw-mx-4 tw-text-black"
         target="_blank"
@@ -52,9 +49,9 @@ export default function SocialIcons() {
       </a>
       <Modal size="sm" centered show={modal_show} onHide={() => set_modal_show(false)}>
         <Modal.Body className="d-flex flex-column">
-          <div className="fw-bold text-center">扫一扫，加我微信</div>
+          <div className="fw-bold text-center">{"扫一扫，加我微信"}</div>
           <div className="tw-flex tw-justify-center tw-my-">
-            <img src="./assets/wxqr.png" height="160em" width="160em" alt="张宇腾 微信"/>
+            <img src="./assets/wxqr.png" height="160em" width="160em" alt="张宇腾 微信" />
           </div>
         </Modal.Body>
       </Modal>
