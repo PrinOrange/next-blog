@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { MdEmail } from "react-icons/md";
 export default function OfficeInfo(props: OfficeInfoModel) {
