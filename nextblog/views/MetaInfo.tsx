@@ -19,7 +19,7 @@ export default function DocMeta(props: DocMetaModel) {
             <>
               <dt className="col-4">
                 {"来源"}
-                <FaLink className="mx-1 tw-inline" size="1em" />
+                <FaLink className="tw-mx-2 tw-inline" size="1em" />
               </dt>
               <dd className="col-8">
                 <a href={props.originURL}>{props.originFrom}</a>
