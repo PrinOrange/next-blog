@@ -11,13 +11,13 @@ import { Button, Modal, SSRProvider } from "react-bootstrap";
 import { fetchFilterTagsData, fetchPinnedListData } from "../../api-ajax/SSR-ajax";
 import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
-import { useAppDispatch } from "../../slices/_store";
+import { useAppDispatch } from "../../redux/_store";
 import { useSelector } from "react-redux";
 import {
   DocsCheckerState,
   fetchCheckedDocsList,
   selectCheckerState,
-} from "../../slices/DocsCheckerSlice";
+} from "../../redux/DocsCheckerSlice";
 import { useEffect, useRef, useState } from "react";
 
 function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: PinnedListModel }) {

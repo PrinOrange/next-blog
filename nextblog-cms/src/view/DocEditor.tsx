@@ -15,7 +15,7 @@ export default function DocEditor() {
   const [subtitle, set_subtitle] = useState<string>("这是副标题");
   const [citation, set_citation] = useState<string>("这是引言");
   const [imgURL, set_imgURL] = useState<string>("这是背景图");
-  const [tags, set_tags] = useState<string>("这是标签");
+  const [tags, set_tags] = useState<string>("标签1,标签2,标签3");
   const [declaration, set_declaration] = useState<string>("这是声明");
   const [originFrom, set_originFrom] = useState<string>("这是来源");
   const [author, set_author] = useState<string>("这是作者");
@@ -24,7 +24,8 @@ export default function DocEditor() {
 
   const { runAsync: postDoc } = useRequest(axios.post, {
     manual: true,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      
       set_modal_show({ show: true, text: "提交成功" });
       set_title("");
       set_author("");
@@ -37,6 +38,7 @@ export default function DocEditor() {
       set_subtitle("");
       set_tags("");
       set_allowShare(false);
+      set_model_text(res.data);
     },
     onError: () => {},
     onBefore: () => {},

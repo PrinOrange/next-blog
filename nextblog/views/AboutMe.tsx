@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import ColorfulBadges from '../components/ColorfulBadges';
 import SocialIcons from './SocialIcons';
 import { AboutMeModel } from '../model/AboutMeModel';

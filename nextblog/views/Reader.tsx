@@ -18,12 +18,12 @@ export default function Reader(props: {
           />
         ) : null}
       </div>
-      <div className=" tw-flex tw-justify-center tw-flex-col tw-border-b-2 tw-mx-4 tw-my-6">
+      <div className="tw-flex tw-justify-center tw-flex-col tw-border-b-2 tw-mx-4 tw-my-6">
         <h2 className="tw-font-bold tw-text-3xl tw-text-center">
           {props.docMeta.title}
         </h2>
-        <h3 className=" tw-text-lg tw-text-center tw-font-bold tw-text-gray-500">{props.docMeta.subtitle}</h3>
-        <p className=" tw-indent-8 tw-text-justify tw-my-4">{props.docMeta.citation}</p>
+        <h3 className="tw-text-lg tw-text-center tw-font-bold tw-text-gray-500">{props.docMeta.subtitle}</h3>
+        <p className="tw-indent-8 tw-text-justify tw-my-4">{props.docMeta.citation}</p>
       </div>
       <MDReader
         previewOnly

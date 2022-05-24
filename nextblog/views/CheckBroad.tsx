@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { useAppDispatch } from "../slices/_store";
-import { cleanCheckerListState, DocsCheckerFilter, fetchCheckedDocsList } from "../slices/DocsCheckerSlice";
+import { useAppDispatch } from "../redux/_store";
+import { cleanCheckerListState, DocsCheckerFilter, fetchCheckedDocsList } from "../redux/DocsCheckerSlice";
 
 function CheckBroad(props: { tags: string[] }) {
   const [keyword_state, set_keyword_state] = useState<string>("");
@@ -44,7 +44,7 @@ function CheckBroad(props: { tags: string[] }) {
         value={keyword_state}
         onChange={handleKeywordChange}
       />
-      <div className=" tw-flex tw-justify-center tw-my-4">
+      <div className="tw-flex tw-justify-center tw-my-4">
         <Button
           as={"div"}
           className="rounded-pill shadow-none tw-px-6 tw-font-bold"

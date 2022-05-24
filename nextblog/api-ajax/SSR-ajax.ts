@@ -91,3 +91,5 @@ export const fetchNextContentData = (
     responseType: "json",
   });
 };
+
+//TODO: 寻找一个方法，可以在外部文件中定义注册API的地址。
