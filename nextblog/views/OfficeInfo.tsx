@@ -17,17 +17,17 @@ export default function OfficeInfo(props: OfficeInfoModel) {
       </div>
       <div className="tw-align-middle tw-my-4">
         <MdEmail className=" tw-inline" size={"1em"} />
-        <span className="fw-bold mx-1 fs-7">{"E-Mail"}</span>
+        <span className="tw-font-bold tw-ml-1 fs-7">{"E-Mail"}</span>
         <a className="" href={`mailto:${props.email}`}>
           {props.email}
         </a>
       </div>
-      <a rel="noreferrer" target={"_blank"} className="fs-7 text-color-dimgrey text-decoration-none d-block">
+      <span className="fs-7 tw-text-color-dimgrey text-decoration-none tw-block">
         {props.icp}
-      </a>
-      <a rel="noreferrer" target={"_blank"} className="fs-7 text-color-dimgrey text-decoration-none d-block">
+      </span>
+      <span className="fs-7 tw-text-gray-700 tw-text-decoration-none tw-block">
         {props.ps}
-      </a>
+      </span>
     </div>
   );
 }

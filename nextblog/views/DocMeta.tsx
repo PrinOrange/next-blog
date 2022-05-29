@@ -5,7 +5,7 @@ import { FaLink } from 'react-icons/fa';
 
 export default function DocMeta(props: DocMetaModel) {
   return (
-    <Card className=" tw-border tw-rounded-2xl tw-my-6">
+    <Card className="tw-border tw-rounded-2xl tw-my-6">
       <Card.Body className="">
         <dl className="row mt-3">
           {props.author ? (

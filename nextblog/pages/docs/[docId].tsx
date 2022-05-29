@@ -1,6 +1,6 @@
 import Affix from "../../components/Affix";
 import classNames from "classnames";
-import DocMeta from "../../views/MetaInfo";
+import DocMeta from "../../views/DocMeta";
 import dynamic from "next/dynamic";
 import FireworkCanvas from "../../components/FireworkCanvas";
 import Head from "next/head";

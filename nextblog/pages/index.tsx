@@ -77,7 +77,6 @@ function Home(props: {
               <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
                 <NavLink content={"Home"} checked={true} href="/" />
                 <NavLink content={"Docs"} checked={false} href="/docs" />
-                <NavLink content={"About"} checked={false} href="/about" />
               </nav>
             </Affix>
             <DocsList list={docs_list} />

@@ -36,9 +36,9 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
     last_list_count.current = checker_state.list.length;
     dispatch(
       fetchCheckedDocsList({
-        tags: checker_state.filter.tags,
-        keyword: checker_state.filter.keyword,
-        outset: checker_state.list[checker_state.list.length - 1].postDate,
+        search_tags: checker_state.factor.search_tags,
+        search_terms: checker_state.factor.search_terms,
+        load_outset: checker_state.list[checker_state.list.length - 1].postDate,
       })
     );
   };
@@ -64,7 +64,6 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
           <nav className=" tw-flex tw-justify-center tw-py-2 tw-border-b tw-bg-white">
             <NavLink content={"Home"} checked={false} href="/" />
             <NavLink content={"Docs"} checked={true} href="/docs" />
-            <NavLink content={"About"} checked={false} href="about" />
           </nav>
         </Affix>
         <main

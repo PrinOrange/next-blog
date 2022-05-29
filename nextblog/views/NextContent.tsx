@@ -8,7 +8,7 @@ export default function NextContent(props: { list: NextContentModel }) {
     <Card className="tw-border tw-rounded-2xl tw-my-6">
       <Card.Body>
         <div className="tw-my-2 tw-text-xl tw-font-bold tw-text-center">
-          <FaListUl className=" tw-inline tw-mx-2" />
+          <FaListUl className="tw-inline tw-mx-2" />
           {"Contents"}
         </div>
         <ListGroup as="ol" className="tw-my-3 tw-px-0" numbered variant="flush">
@@ -20,12 +20,12 @@ export default function NextContent(props: { list: NextContentModel }) {
             >
               <ListGroup.Item
                 as="div"
-                className="d-flex justify-content-between align-items-start tw-cursor-pointer"
+                className="tw-flex tw-justify-between tw-align-middle tw-cursor-pointer"
                 action
               >
                 <a href={`/docs/${item.id}`} className="hover:tw-text-inherit">
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">{item.title}</div>
+                  <div className="tw-ml-2 tw-mr-auto">
+                    <div className="tw-font-bold">{item.title}</div>
                     {item.subtitle}
                   </div>
                 </a>
