@@ -13,11 +13,7 @@ import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
 import { useAppDispatch } from "../../redux/_store";
 import { useSelector } from "react-redux";
-import {
-  DocsCheckerState,
-  fetchCheckedDocsList,
-  selectCheckerState,
-} from "../../redux/DocsCheckerSlice";
+import { DocsCheckerState, fetchCheckedDocsList, selectCheckerState } from "../../redux/DocsCheckerSlice";
 import { useEffect, useRef, useState } from "react";
 
 function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: PinnedListModel }) {
@@ -38,15 +34,12 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
       fetchCheckedDocsList({
         search_tags: checker_state.factor.search_tags,
         search_terms: checker_state.factor.search_terms,
-        load_outset: checker_state.list[checker_state.list.length - 1].postDate,
+        outset: checker_state.list[checker_state.list.length - 1].postDate,
       })
     );
   };
   useEffect(() => {
-    if (
-      checker_state.list.length !== 0 &&
-      checker_state.list.length - last_list_count.current === 0
-    ) {
+    if (checker_state.list.length !== 0 && checker_state.list.length - last_list_count.current === 0) {
       set_modal_show({ text: "加载已经到底了！", show: true });
     }
   }, [checker_state.list]);
@@ -66,18 +59,8 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
             <NavLink content={"Docs"} checked={true} href="/docs" />
           </nav>
         </Affix>
-        <main
-          className={classNames(
-            "tw-min-h-screen",
-            "tw-mx-auto",
-            "tw-grid",
-            "tw-grid-cols-1",
-            "tw-grid-flow-row",
-            "lg:tw-grid-cols-4",
-            "tw-subpixel-antialiased"
-          )}
-        >
-          <div className={classNames("tw-col-span-1", "lg:tw-col-span-1", "tw-px-5")}>
+        <main className={classNames("tw-mx-auto", "tw-grid", "tw-grid-flow-row", "tw-grid-cols-1", "md:tw-grid-cols-3", "lg:tw-grid-cols-4", "tw-subpixel-antialiased")}>
+          <div className={classNames("tw-px-5", "md:tw-col-span-1", "lg:tw-col-span-1")}>
             <header className=" tw-mt-6">
               <Header />
             </header>
@@ -85,14 +68,7 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
               <CheckBroad tags={props.fetchedFilterTagsData} />
             </Affix>
           </div>
-          <div
-            className={classNames(
-              "tw-col-span-1",
-              "lg:tw-col-span-2",
-              "tw-border-l",
-              "tw-border-r"
-            )}
-          >
+          <div className={classNames("tw-border-l", "tw-border-r", "md:tw-col-span-2", "lg:tw-col-span-2")}>
             <DocsList list={checker_state.list} />
             <div className=" tw-my-4 tw-flex tw-justify-center">
               <Button className="shadow-none" as="div" onClick={handleLoadMore}>
@@ -100,14 +76,7 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
               </Button>
             </div>
           </div>
-          <div
-            className={classNames(
-              "tw-col-span-1",
-              "md:tw-col-span-3",
-              "lg:tw-col-span-1",
-              "tw-px-5"
-            )}
-          >
+          <div className={classNames("tw-pt-4", "tw-px-5", "md:tw-col-span-3", "lg:tw-col-span-1")}>
             <Affix direction={"top"} space={90}>
               <PinnedListBroad list={props.fetchedPinnedListData} />
             </Affix>

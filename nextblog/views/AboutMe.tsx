@@ -14,8 +14,9 @@ export default function AboutMe(props: AboutMeModel) {
           height="130px"
           width="130px"
         />
-        <div className=" tw-text-sm tw-mx-4 tw-my-3">{props.impression}</div>
-        <div className=" tw-mx-4 tw-my-3 tw-flex tw-justify-center tw-flex-wrap">
+        <div className="tw-text-center tw-text-sm tw-mx-4 tw-font-bold tw-text-gray-600 tw-my-3">{props.quote}</div>
+        <div className="tw-text-sm tw-mx-4 tw-my-3">{props.impression}</div>
+        <div className="tw-mx-4 tw-my-3 tw-flex tw-justify-center tw-flex-wrap">
           <ColorfulBadges stringArr={props.badges} />
         </div>
         <div className=" tw-px-5">

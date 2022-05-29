@@ -6,7 +6,7 @@ import { fetchFirstLoadDocsListData } from "../api-ajax/SSR-ajax";
 export interface DocsCheckerFactor {
   search_terms?: string;
   search_tags?: string;
-  load_outset?: string;
+  outset?: string;
 }
 
 export interface DocsCheckerState {
@@ -19,7 +19,7 @@ export const InitialDocsCheckerState: DocsCheckerState = {
   factor: {
     search_tags: "",
     search_terms: "",
-    load_outset: "",
+    outset: "",
   },
 };
 

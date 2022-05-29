@@ -5,12 +5,12 @@ import { useRef, useState } from "react";
 
 function CheckBroad(props: { tags: string[] }) {
   const [search_terms_state, set_search_terms_state] = useState<string>("");
-  const [search_tags_state, set_search_tags_state] = useState<string>("");
+  const [search_tags_state, set_search_tags_state] = useState<string[]>([]);
 
   const factor_ref = useRef<DocsCheckerFactor>({
     search_terms: "",
     search_tags: "",
-    load_outset: "",
+    outset: "",
   });
 
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ function CheckBroad(props: { tags: string[] }) {
   };
 
   const handleSearchTagsChange = (val: any) => {
-    set_search_tags_state(val.join(","));
+    set_search_tags_state(val);
     factor_ref.current.search_tags = val.join(",");
   };
 
@@ -29,8 +29,8 @@ function CheckBroad(props: { tags: string[] }) {
     dispatch(cleanCheckerListState());
     dispatch(
       fetchCheckedDocsList({
-        search_tags: search_tags_state,
-        search_terms: search_terms_state,
+        search_tags: factor_ref.current.search_tags,
+        search_terms: factor_ref.current.search_terms,
       })
     );
   };
@@ -43,7 +43,7 @@ function CheckBroad(props: { tags: string[] }) {
           {"Check"}
         </Button>
       </div>
-      <ToggleButtonGroup type="checkbox" bsPrefix="tw-flex tw-justify-center tw-my-3 tw-flex-wrap" value={search_tags_state.split(",")} onChange={handleSearchTagsChange}>
+      <ToggleButtonGroup type="checkbox" bsPrefix="tw-flex tw-justify-center tw-my-3 tw-flex-wrap" value={search_tags_state} onChange={handleSearchTagsChange}>
         {props.tags.map((item, index) => {
           const variant_list = ["primary", "secondary", "success", "danger", "info", "warning", "dark", "primary", "secondary", "success", "danger"];
           return (
