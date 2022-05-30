@@ -6,26 +6,38 @@ import { useState } from "react";
 import "md-editor-rt/lib/style.css";
 
 export default function DocEditor() {
-  const [model_text, set_model_text] = useState<string>("这是正文内容");
   const [modal_show, set_modal_show] = useState({
-    show: true,
+    show: false,
     text: "",
   });
-  const [title, set_title] = useState<string>("这是标题");
-  const [subtitle, set_subtitle] = useState<string>("这是副标题");
-  const [citation, set_citation] = useState<string>("这是引言");
-  const [imgURL, set_imgURL] = useState<string>("这是背景图");
-  const [tags, set_tags] = useState<string>("标签1,标签2,标签3");
-  const [declaration, set_declaration] = useState<string>("这是声明");
-  const [originFrom, set_originFrom] = useState<string>("这是来源");
-  const [author, set_author] = useState<string>("这是作者");
-  const [originURL, set_originURL] = useState<string>("这是原链接");
+
+  // const [model_text, set_model_text] = useState<string>("这是正文内容");
+  // const [title, set_title] = useState<string>("这是标题");
+  // const [subtitle, set_subtitle] = useState<string>("这是副标题");
+  // const [citation, set_citation] = useState<string>("这是引言");
+  // const [imgURL, set_imgURL] = useState<string>("这是背景图");
+  // const [tags, set_tags] = useState<string>("标签1,标签2,标签3");
+  // const [declaration, set_declaration] = useState<string>("这是声明");
+  // const [originFrom, set_originFrom] = useState<string>("这是来源");
+  // const [author, set_author] = useState<string>("这是作者");
+  // const [originURL, set_originURL] = useState<string>("这是原链接");
+  // const [allowShare, set_allowShare] = useState<boolean>(false);
+
+  const [model_text, set_model_text] = useState<string>("");
+  const [title, set_title] = useState<string>("");
+  const [subtitle, set_subtitle] = useState<string>("");
+  const [citation, set_citation] = useState<string>("");
+  const [imgURL, set_imgURL] = useState<string>("");
+  const [tags, set_tags] = useState<string>("标签1,标签2,");
+  const [declaration, set_declaration] = useState<string>("");
+  const [originFrom, set_originFrom] = useState<string>("");
+  const [author, set_author] = useState<string>("");
+  const [originURL, set_originURL] = useState<string>("");
   const [allowShare, set_allowShare] = useState<boolean>(false);
 
   const { runAsync: postDoc } = useRequest(axios.post, {
     manual: true,
     onSuccess: (res) => {
-      
       set_modal_show({ show: true, text: "提交成功" });
       set_title("");
       set_author("");
@@ -44,13 +56,17 @@ export default function DocEditor() {
     onBefore: () => {},
   });
 
+  function pad2(n:number) {
+    return n < 10 ? "0" + n : n;
+  }
+
   const getPostDate = () => {
     let date = new Date();
-    return `${date.toJSON().slice(0, 10).split("-").join("")}`;
+    return date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds());
   };
 
   const handleCloseModal = () => {
-    set_modal_show({ show: false, text: "" });
+    set_modal_show({ text: "", show: false });
   };
 
   return (
@@ -179,7 +195,7 @@ export default function DocEditor() {
           />
           <div>
             <Button className="mx-1" variant="secondary">
-              本地保存
+              {"本地保存"}
             </Button>
             <Button
               className="mx-1"
