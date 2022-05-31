@@ -56,12 +56,9 @@ export default function DocEditor() {
     onBefore: () => {},
   });
 
-  function pad2(n:number) {
-    return n < 10 ? "0" + n : n;
-  }
-
   const getPostDate = () => {
     let date = new Date();
+    const pad2 = (n: number) => (n < 10 ? "0" + n : n);
     return date.getFullYear().toString() + pad2(date.getMonth() + 1) + pad2(date.getDate()) + pad2(date.getHours()) + pad2(date.getMinutes()) + pad2(date.getSeconds());
   };
 
@@ -203,16 +200,16 @@ export default function DocEditor() {
                 postDoc(
                   "http://127.0.0.3:8080/doc-server/post-doc.php",
                   JSON.stringify({
-                    title: title,
-                    subtitle: subtitle,
-                    citation: citation,
-                    imgURL: imgURL,
-                    tags: tags,
-                    declaration: declaration,
-                    originFrom: originFrom,
-                    author: author,
-                    originURL: originURL,
-                    text: model_text,
+                    title: title.trim() === "" ? null : title,
+                    subtitle: subtitle.trim() === "" ? null : subtitle,
+                    citation: citation.trim() === "" ? null : citation,
+                    imgURL: imgURL.trim() === "" ? null : imgURL,
+                    tags: tags.trim() === "" ? null : tags,
+                    declaration: declaration.trim() === "" ? null : declaration,
+                    originFrom: originFrom.trim() === "" ? null : originFrom,
+                    author: author.trim() === "" ? null : author,
+                    originURL: originURL.trim() === "" ? null : originURL,
+                    text: model_text.trim() === "" ? null : model_text,
                     allowShare: allowShare ? "1" : "0",
                     postDate: getPostDate(),
                   })

@@ -13,13 +13,12 @@ import SocialBlock from "../views/SocialBlock";
 import { AboutMeModel } from "../model/AboutMeModel";
 import { Button, Modal, SSRProvider } from "react-bootstrap";
 import { DocsListModel } from "../model/DocsListModel";
-import { fetchAboutmeData, fetchFilterTagsData, fetchFirstLoadDocsListData, fetchFriendListData, fetchOfficeInfoData, fetchPinnedListData } from "../api-ajax/SSR-ajax";
+import { fetchAboutmeData, fetchFilterTagsData, fetchFirstLoadDocsListData, fetchFriendListData, fetchHomeDocsListLoadMore, fetchOfficeInfoData, fetchPinnedListData } from "../api-ajax/SSR-ajax";
 import { FriendListModel } from "../model/FriendListModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";
 import { useState } from "react";
 import type { GetServerSideProps } from "next";
-import { fetchHomeDocsListLoadMore } from "../api-ajax/CSR-ajax";
 
 function Home(props: {
   fetchedAboutmeData: AboutMeModel;

@@ -6,13 +6,13 @@ import { FriendListModel } from "../model/FriendListModel";
 import { NextContentModel } from "../model/NextContentModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";
-
+import {SSR_AJAX_API} from '../api.config.js';
 /*这些模块都是实现Next.js构建时从服务器获取数据的方法。*/
 
 export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/about-me.json",
+    url: SSR_AJAX_API.v1.AboutmeData,
     responseType: "json",
   });
 };
@@ -20,7 +20,7 @@ export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
 export const fetchPinnedListData = (): AxiosPromise<PinnedListModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/recommend-list.php",
+    url: SSR_AJAX_API.v1.PinnedListData,
     responseType: "json",
   });
 };
@@ -28,7 +28,7 @@ export const fetchPinnedListData = (): AxiosPromise<PinnedListModel> => {
 export const fetchFriendListData = (): AxiosPromise<FriendListModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/friend.json",
+    url: SSR_AJAX_API.v1.FriendListData,
     responseType: "json",
   });
 };
@@ -36,7 +36,7 @@ export const fetchFriendListData = (): AxiosPromise<FriendListModel> => {
 export const fetchFilterTagsData = (): AxiosPromise<string[]> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/get-checker-tags.php",
+    url: SSR_AJAX_API.v1.FilterTagsData,
     responseType: "json",
   });
 };
@@ -44,7 +44,7 @@ export const fetchFilterTagsData = (): AxiosPromise<string[]> => {
 export const fetchOfficeInfoData = (): AxiosPromise<OfficeInfoModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/office-info.json",
+    url: SSR_AJAX_API.v1.OfficeInfoData,
     responseType: "json",
   });
 };
@@ -52,7 +52,20 @@ export const fetchOfficeInfoData = (): AxiosPromise<OfficeInfoModel> => {
 export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",
-    url: "http://127.0.0.3:8080/doc-server/home-list.php",
+    url: SSR_AJAX_API.v1.FirstLoadDocsListData,
+    responseType: "json",
+  });
+};
+
+export const fetchHomeDocsListLoadMore = (
+  load_outset:string
+): AxiosPromise<DocsListModel> => {
+  return axios({
+    method: "GET",
+    url: SSR_AJAX_API.v1.DocsListLoadMoreData,
+    params: {
+      load_outset:load_outset
+    },
     responseType: "json",
   });
 };
@@ -60,7 +73,7 @@ export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
 export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaModel> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/doc-meta.php`,
+    url: SSR_AJAX_API.v1.DocMetaData,
     params: {
       id: docId,
     },
@@ -71,7 +84,7 @@ export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaM
 export const fetchDocModelTextData = (docId?: string[]|string): AxiosPromise<string> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/doc-model-text.php`,
+    url: SSR_AJAX_API.v1.DocModelTextData,
     params: {
       id: docId,
     },
@@ -84,7 +97,7 @@ export const fetchNextContentData = (
 ): AxiosPromise<NextContentModel> => {
   return axios({
     method: "GET",
-    url: `http://127.0.0.3:8080/doc-server/next-content.php`,
+    url: SSR_AJAX_API.v1.NextContentData,
     params: {
       outset: outset,
     },
