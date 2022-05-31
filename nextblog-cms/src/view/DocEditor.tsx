@@ -11,24 +11,12 @@ export default function DocEditor() {
     text: "",
   });
 
-  // const [model_text, set_model_text] = useState<string>("这是正文内容");
-  // const [title, set_title] = useState<string>("这是标题");
-  // const [subtitle, set_subtitle] = useState<string>("这是副标题");
-  // const [citation, set_citation] = useState<string>("这是引言");
-  // const [imgURL, set_imgURL] = useState<string>("这是背景图");
-  // const [tags, set_tags] = useState<string>("标签1,标签2,标签3");
-  // const [declaration, set_declaration] = useState<string>("这是声明");
-  // const [originFrom, set_originFrom] = useState<string>("这是来源");
-  // const [author, set_author] = useState<string>("这是作者");
-  // const [originURL, set_originURL] = useState<string>("这是原链接");
-  // const [allowShare, set_allowShare] = useState<boolean>(false);
-
   const [model_text, set_model_text] = useState<string>("");
   const [title, set_title] = useState<string>("");
   const [subtitle, set_subtitle] = useState<string>("");
   const [citation, set_citation] = useState<string>("");
   const [imgURL, set_imgURL] = useState<string>("");
-  const [tags, set_tags] = useState<string>("标签1,标签2,");
+  const [tags, set_tags] = useState<string>("");
   const [declaration, set_declaration] = useState<string>("");
   const [originFrom, set_originFrom] = useState<string>("");
   const [author, set_author] = useState<string>("");

@@ -102,28 +102,34 @@ const Docs = (props: { fetchedDocMetaData: DocMetaModel; fetchedSEOConfigData: M
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const makeSEOConfig = (docMeta: DocMetaModel): MetaSEOModel => {
-    return {
-      title: `${docMeta.title}-张宇腾博客`,
-      keywords: docMeta.tags?.join(","),
-      author: docMeta?.author,
-      description: docMeta?.citation,
-    };
+const makeSEOConfig = (docMeta: DocMetaModel): MetaSEOModel => {
+  return {
+    title: `${docMeta.title}-张宇腾博客`,
+    keywords: docMeta.tags?.join(","),
+    author: docMeta?.author,
+    description: docMeta?.citation,
   };
+};
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try{
   const _fetchedDocMetaData = (await fetchDocMetaData(context.params?.docId)).data;
   const _fetchedNextContentData = (await fetchNextContentData(_fetchedDocMetaData.postDate)).data;
   const _fetchedSEOConfigData = makeSEOConfig(_fetchedDocMetaData);
-
+  const _fetchedDocModelTextData = (await fetchDocModelTextData(context.params?.docId)).data;
   return {
     props: {
       fetchedDocMetaData: _fetchedDocMetaData,
-      fetchedDocModelTextData: (await fetchDocModelTextData(context.params?.docId)).data,
+      fetchedDocModelTextData: _fetchedDocModelTextData,
       fetchedNextContentData: _fetchedNextContentData,
       fetchedSEOConfigData: _fetchedSEOConfigData,
     },
   };
+}catch{
+  return {
+    notFound:true
+  }
+}
 };
 
 export default Docs;
