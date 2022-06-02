@@ -9,7 +9,7 @@ import NextContent from "../../views/NextContent";
 import Reader from "../../views/Reader";
 import { DocMetaModel } from "../../model/DocMetaModel";
 import { FaListAlt } from "react-icons/fa";
-import { fetchDocMetaData, fetchDocModelTextData, fetchNextContentData } from "../../api-ajax/SSR-ajax";
+import { fetchDocMetaData, fetchDocModelTextData, fetchNextContentData } from "../../api/SSR-ajax";
 import { GetServerSideProps } from "next";
 import { GrClose } from "react-icons/gr";
 import { MetaSEOModel } from "../../model/SEOModel";

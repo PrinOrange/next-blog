@@ -26,6 +26,7 @@ export function useAuthorization() {
     const _auth_type: AuthorizationModel = (
       await axios({
         method: "GET",
+        withCredentials:true,
         url: "http://127.0.0.3:8080/test-auth-type.json",
         params: {
           passwd: passwd,

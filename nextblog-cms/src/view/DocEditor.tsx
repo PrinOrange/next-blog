@@ -44,6 +44,43 @@ export default function DocEditor() {
     onBefore: () => {},
   });
 
+  const saveLocal = () => {
+    window.localStorage.setItem(
+      "edit_state",
+      JSON.stringify({
+        title: title,
+        subtitle: subtitle,
+        citation: citation,
+        imgURL: imgURL,
+        tags: tags,
+        declaration: declaration,
+        originFrom: originFrom,
+        author: author,
+        originURL: originURL,
+        text: model_text,
+        allowShare: allowShare,
+      })
+    );
+  };
+
+  const readLocal = () => {};
+
+  const cleanEdit = () => {
+    set_title("");
+    set_author("");
+    set_citation("");
+    set_declaration("");
+    set_imgURL("");
+    set_model_text("");
+    set_originFrom("");
+    set_originURL("");
+    set_subtitle("");
+    set_tags("");
+    set_allowShare(false);
+    set_model_text("");
+    window.localStorage.removeItem("edit_state");
+  };
+
   const getPostDate = () => {
     let date = new Date();
     const pad2 = (n: number) => (n < 10 ? "0" + n : n);
@@ -179,8 +216,8 @@ export default function DocEditor() {
             }}
           />
           <div>
-            <Button className="mx-1" variant="secondary">
-              {"本地保存"}
+            <Button className="mx-5" variant="danger" onClick={cleanEdit}>
+              {"放弃"}
             </Button>
             <Button
               className="mx-1"
@@ -205,6 +242,9 @@ export default function DocEditor() {
               }
             >
               {"发表"}
+            </Button>
+            <Button className="mx-1" variant="secondary" onClick={saveLocal}>
+              {"本地保存"}
             </Button>
           </div>
         </div>

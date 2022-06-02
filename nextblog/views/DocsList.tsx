@@ -1,3 +1,4 @@
+import { yyyyMMddhhmmssToDate } from "../api/datestring";
 import ColorfulBadges from "../components/ColorfulBadges";
 import { DocsListModel } from "../model/DocsListModel";
 
@@ -28,7 +29,7 @@ export default function DocsList(props: { list: DocsListModel; showLoading?: boo
               <p className="tw-indent-8 text-justify">{item.citation}</p>
             </div>
             <div className="text-muted d-flex flex-column justify-content-between my-2">
-              <div className="fs-6 fw-light text-end">{`${"发布日期"}${item.postDate}`}</div>
+              <div className="fs-6 fw-light text-end">{`${"发布时间："}${yyyyMMddhhmmssToDate(item.postDate)}`}</div>
             </div>
           </div>
         </a>

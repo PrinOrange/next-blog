@@ -5,7 +5,7 @@ import Head from 'next/head';
 import OfficeInfo from '../views/OfficeInfo';
 import PinnedListBroad from '../views/PinnedList';
 import SocialBlock from '../views/SocialBlock';
-import { fetchOfficeInfoData, fetchPinnedListData } from '../api-ajax/SSR-ajax';
+import { fetchOfficeInfoData, fetchPinnedListData } from '../api/SSR-ajax';
 import { TbError404 } from 'react-icons/tb';
 import { useEffect, useState } from 'react';
 

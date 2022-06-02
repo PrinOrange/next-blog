@@ -17,7 +17,7 @@ function CheckBroad(props: { tags: string[] }) {
 
   const handleSearchTermsChange = (e: any) => {
     set_search_terms_state(e.target.value);
-    factor_ref.current.search_terms = e.target.value?.split(",");
+    factor_ref.current.search_terms = e.target.value;
   };
 
   const handleSearchTagsChange = (val: any) => {

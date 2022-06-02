@@ -7,6 +7,7 @@ import { NextContentModel } from "../model/NextContentModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";
 import {SSR_AJAX_API} from '../api.config.js';
+import { MetaSEOModel } from "../model/SEOModel";
 /*这些模块都是实现Next.js构建时从服务器获取数据的方法。*/
 
 export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
@@ -105,4 +106,20 @@ export const fetchNextContentData = (
   });
 };
 
-//TODO: 寻找一个方法，可以在外部文件中定义注册API的地址。
+export const fetchHomeSEOData = (
+): AxiosPromise<MetaSEOModel> => {
+  return axios({
+    method: "GET",
+    url: SSR_AJAX_API.v1.HomeSEOData,
+    responseType: "json",
+  });
+};
+
+export const fetchDocsSEOData = (
+  ): AxiosPromise<MetaSEOModel> => {
+    return axios({
+      method: "GET",
+      url: SSR_AJAX_API.v1.DocsSEOData,
+      responseType: "json",
+    });
+  };
