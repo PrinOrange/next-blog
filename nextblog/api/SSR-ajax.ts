@@ -6,8 +6,9 @@ import { FriendListModel } from "../model/FriendListModel";
 import { NextContentModel } from "../model/NextContentModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";
-import {SSR_AJAX_API} from '../api.config.js';
+import { SSR_AJAX_API } from "../api.config.js";
 import { MetaSEOModel } from "../model/SEOModel";
+import { DocsCheckerFactor } from "../redux/DocsCheckerSlice";
 /*这些模块都是实现Next.js构建时从服务器获取数据的方法。*/
 
 export const fetchAboutmeData = (): AxiosPromise<AboutMeModel> => {
@@ -58,20 +59,18 @@ export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
   });
 };
 
-export const fetchHomeDocsListLoadMore = (
-  load_outset:string
-): AxiosPromise<DocsListModel> => {
+export const fetchHomeDocsListLoadMore = (load_outset: string): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.DocsListLoadMoreData,
     params: {
-      load_outset:load_outset
+      load_outset: load_outset,
     },
     responseType: "json",
   });
 };
 
-export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaModel> => {
+export const fetchDocMetaData = (docId?: string[] | string): AxiosPromise<DocMetaModel> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.DocMetaData,
@@ -82,7 +81,7 @@ export const fetchDocMetaData = (docId?: string[]|string): AxiosPromise<DocMetaM
   });
 };
 
-export const fetchDocModelTextData = (docId?: string[]|string): AxiosPromise<string> => {
+export const fetchDocModelTextData = (docId?: string[] | string): AxiosPromise<string> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.DocModelTextData,
@@ -93,9 +92,7 @@ export const fetchDocModelTextData = (docId?: string[]|string): AxiosPromise<str
   });
 };
 
-export const fetchNextContentData = (
-  outset: string
-): AxiosPromise<NextContentModel> => {
+export const fetchNextContentData = (outset: string): AxiosPromise<NextContentModel> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.NextContentData,
@@ -106,8 +103,7 @@ export const fetchNextContentData = (
   });
 };
 
-export const fetchHomeSEOData = (
-): AxiosPromise<MetaSEOModel> => {
+export const fetchHomeSEOData = (): AxiosPromise<MetaSEOModel> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.HomeSEOData,
@@ -115,11 +111,24 @@ export const fetchHomeSEOData = (
   });
 };
 
-export const fetchDocsSEOData = (
-  ): AxiosPromise<MetaSEOModel> => {
-    return axios({
-      method: "GET",
-      url: SSR_AJAX_API.v1.DocsSEOData,
-      responseType: "json",
-    });
+export const fetchDocsSEOData = (): AxiosPromise<MetaSEOModel> => {
+  return axios({
+    method: "GET",
+    url: SSR_AJAX_API.v1.DocsSEOData,
+    responseType: "json",
+  });
+};
+
+export const fetchCheckedDocsList = async (filter: DocsCheckerFactor) => {
+  return {
+    list: (
+      await axios({
+        method: "GET",
+        url: SSR_AJAX_API.v1.CheckedDocsList,
+        responseType: "json",
+        params: filter,
+      })
+    ).data,
+    filter: filter,
   };
+}

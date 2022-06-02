@@ -10,7 +10,8 @@ export const SSR_AJAX_API = {
     DocMetaData: `http://127.0.0.3:8080/doc-server/doc-meta.php`,
     DocModelTextData: `http://127.0.0.3:8080/doc-server/doc-model-text.php`,
     NextContentData: `http://127.0.0.3:8080/doc-server/next-content.php`,
-    HomeSEOData:"http://127.0.0.3:8080/home-SEO.json",
-    DocsSEOData:"http://127.0.0.3:8080/docs-SEO.json",
+    HomeSEOData: "http://127.0.0.3:8080/home-SEO.json",
+    DocsSEOData: "http://127.0.0.3:8080/docs-SEO.json",
+    CheckedDocsList: `http://127.0.0.3:8080/doc-server/check-doc.php`,
   },
 };

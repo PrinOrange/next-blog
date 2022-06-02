@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DocsListModel } from "../model/DocsListModel";
-import { fetchFirstLoadDocsListData } from "../api/SSR-ajax";
+import { fetchCheckedDocsList, fetchFirstLoadDocsListData } from "../api/SSR-ajax";
 
 export interface DocsCheckerFactor {
   search_terms?: string;
@@ -23,22 +23,7 @@ export const InitialDocsCheckerState: DocsCheckerState = {
   },
 };
 
-export const fetchCheckedDocsList = createAsyncThunk(
-  "DocsChecker/fetchDocsList",
-  async (filter: DocsCheckerFactor) => {
-    return {
-      list: (
-        await axios({
-          method: "GET",
-          url: `http://127.0.0.3:8080/doc-server/check-doc.php`,
-          responseType: "json",
-          params: filter,
-        })
-      ).data,
-      filter: filter,
-    };
-  }
-);
+export const fetchCheckedDocsListThunk = createAsyncThunk("DocsChecker/fetchDocsList", fetchCheckedDocsList);
 
 export const DocsCheckerSlice = createSlice({
   name: "DocsChecker",
@@ -52,7 +37,7 @@ export const DocsCheckerSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchCheckedDocsList.fulfilled as any]: (state: DocsCheckerState, action: any) => {
+    [fetchCheckedDocsListThunk.fulfilled as any]: (state: DocsCheckerState, action: any) => {
       return { factor: action.payload.filter, list: [...state.list, ...action.payload.list] };
     },
   },

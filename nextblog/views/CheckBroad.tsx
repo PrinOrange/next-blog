@@ -1,5 +1,5 @@
 import { Button, Form, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { cleanCheckerListState, DocsCheckerFactor, fetchCheckedDocsList } from "../redux/DocsCheckerSlice";
+import { cleanCheckerListState, DocsCheckerFactor, fetchCheckedDocsListThunk } from "../redux/DocsCheckerSlice";
 import { useAppDispatch } from "../redux/_store";
 import { useRef, useState } from "react";
 
@@ -34,7 +34,7 @@ function CheckBroad(props: { tags: string[] }) {
   const handleCheckLoad = () => {
     dispatch(cleanCheckerListState());
     dispatch(
-      fetchCheckedDocsList({
+      fetchCheckedDocsListThunk({
         search_tags: factor_ref.current.search_tags,
         search_terms: factor_ref.current.search_terms,
       })

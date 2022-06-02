@@ -13,7 +13,7 @@ import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
 import { useAppDispatch } from "../../redux/_store";
 import { useSelector } from "react-redux";
-import { DocsCheckerState, fetchCheckedDocsList, selectCheckerState } from "../../redux/DocsCheckerSlice";
+import { DocsCheckerState, fetchCheckedDocsListThunk, selectCheckerState } from "../../redux/DocsCheckerSlice";
 import { useEffect, useRef, useState } from "react";
 import { MetaSEOModel } from "../../model/SEOModel";
 
@@ -32,7 +32,7 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
   const handleLoadMore = () => {
     last_list_count.current = checker_state.list.length;
     dispatch(
-      fetchCheckedDocsList({
+      fetchCheckedDocsListThunk({
         search_tags: checker_state.factor.search_tags,
         search_terms: checker_state.factor.search_terms,
         outset: checker_state.list[checker_state.list.length - 1].postDate,
