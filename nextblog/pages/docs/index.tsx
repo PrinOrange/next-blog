@@ -50,7 +50,7 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
       <div className=" tw-select-none ">
         <FireworkCanvas />
         <Head>
-        <title>{props.fetchedDocsSEOData.title}</title>
+          <title>{props.fetchedDocsSEOData.title}</title>
           <meta name="description" content={props.fetchedDocsSEOData.description} />
           <meta name="Keywords" content={props.fetchedDocsSEOData.keywords} />
           <meta name="author" content={props.fetchedDocsSEOData.author} />

@@ -15,6 +15,12 @@ function CheckBroad(props: { tags: string[] }) {
 
   const dispatch = useAppDispatch();
 
+  const handleKeyCheck = (e: any) => {
+    if (e.key == 'Enter') {
+        handleCheckLoad();
+    }
+}
+
   const handleSearchTermsChange = (e: any) => {
     set_search_terms_state(e.target.value);
     factor_ref.current.search_terms = e.target.value;
@@ -37,7 +43,7 @@ function CheckBroad(props: { tags: string[] }) {
 
   return (
     <div className="tw-my-6">
-      <Form.Control type="search" className="rounded-pill shadow-none" placeholder="Input Keywords Here..." value={search_terms_state} onChange={handleSearchTermsChange} />
+      <Form.Control type="search" className="rounded-pill shadow-none" placeholder="Input Keywords Here..." value={search_terms_state} onChange={handleSearchTermsChange} onKeyUp={handleKeyCheck} />
       <div className="tw-flex tw-justify-center tw-my-4">
         <Button as={"div"} className="tw-rounded-full tw-shadow-none tw-px-6 tw-font-bold" onClick={handleCheckLoad}>
           {"Check"}
