@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DocsListModel } from "../model/DocsListModel";
-import { fetchCheckedDocsList, fetchFirstLoadDocsListData } from "../api/SSR-ajax";
+import { fetchCheckedDocsList, fetchFirstLoadDocsListData } from "../api/ajax";
 
 export interface DocsCheckerFactor {
   search_terms?: string;

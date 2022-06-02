@@ -22,7 +22,7 @@ import {
   fetchOfficeInfoData,
   fetchPinnedListData,
   fetchHomeSEOData,
-} from "../api/SSR-ajax";
+} from "../api/ajax";
 import { FriendListModel } from "../model/FriendListModel";
 import { OfficeInfoModel } from "../model/OfficeInfoModel";
 import { PinnedListModel } from "../model/PinnedListModel";

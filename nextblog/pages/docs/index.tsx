@@ -8,7 +8,7 @@ import Header from "../../views/HeaderLOGO";
 import NavLink from "../../components/NavLink";
 import PinnedListBroad from "../../views/PinnedList";
 import { Button, Modal, SSRProvider } from "react-bootstrap";
-import { fetchDocsSEOData, fetchFilterTagsData, fetchPinnedListData } from "../../api/SSR-ajax";
+import { fetchDocsSEOData, fetchFilterTagsData, fetchPinnedListData } from "../../api/ajax";
 import { GetServerSideProps } from "next";
 import { PinnedListModel } from "../../model/PinnedListModel";
 import { useAppDispatch } from "../../redux/_store";
