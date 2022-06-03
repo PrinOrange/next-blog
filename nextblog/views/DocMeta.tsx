@@ -1,7 +1,8 @@
-import ColorfulBadges from '../components/ColorfulBadges';
-import { Card } from 'react-bootstrap';
-import { DocMetaModel } from '../model/DocMetaModel';
-import { FaLink } from 'react-icons/fa';
+import ColorfulBadges from "../components/ColorfulBadges";
+import { Card } from "react-bootstrap";
+import { DocMetaModel } from "../model/DocMetaModel";
+import { FaLink } from "react-icons/fa";
+import { yyyyMMddhhmmssToDate } from "../api/datestring";
 
 export default function DocMeta(props: DocMetaModel) {
   return (
@@ -30,7 +31,7 @@ export default function DocMeta(props: DocMetaModel) {
           {props.postDate ? (
             <>
               <dt className="col-4">{"日期"}</dt>
-              <dd className="col-8">{props.postDate}</dd>
+              <dd className="col-8">{yyyyMMddhhmmssToDate(props.postDate)}</dd>
             </>
           ) : null}
 

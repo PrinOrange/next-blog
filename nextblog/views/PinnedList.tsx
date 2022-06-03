@@ -12,7 +12,7 @@ export default function PinnedListBroad(props: { list: PinnedListModel }) {
         <ListGroup as="ol" className="tw-my-3 tw-px-0" numbered variant="flush">
           {props.list.map((item, index) => (
             <ListGroup.Item key={`pinnedList-${item.id}-${index}`} as="div" className="tw-flex tw-justify-start tw-cursor-pointer" action>
-              <a href={`/docs/${item.id}`}>
+              <a href={`/docs/${item.id}`} target="_blank" rel="noreferrer">
                 <div className="tw-font-bold">{item.title}</div>
                 {item.subtitle}
               </a>

@@ -6,7 +6,7 @@ export default function DocsList(props: { list: DocsListModel; showLoading?: boo
   return (
     <div>
       {props.list.map((item) => (
-        <a href={`/docs/${item.id}`} key={`docslist-${item.id}`} className="hover:tw-text-inherit">
+        <a href={`/docs/${item.id}`} key={`docslist-${item.id}`} className="hover:tw-text-inherit" target="_blank" rel="noreferrer">
           <div className="tw-px-2 tw-py-2 tw-border-b hover:tw-bg-gray-100">
             <div>
               <ColorfulBadges stringArr={item.tags} />
