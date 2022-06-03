@@ -4,11 +4,11 @@ import { useAppDispatch } from "../redux/_store";
 import { useRef, useState } from "react";
 
 function CheckBroad(props: { tags: string[] }) {
-  const [search_terms_state, set_search_terms_state] = useState<string>("");
+  const [search_keywords_state, set_search_keywords_state] = useState<string>("");
   const [search_tags_state, set_search_tags_state] = useState<string[]>([]);
 
   const factor_ref = useRef<DocsCheckerFactor>({
-    search_terms: "",
+    search_keywords: "",
     search_tags: "",
     outset: "",
   });
@@ -16,14 +16,14 @@ function CheckBroad(props: { tags: string[] }) {
   const dispatch = useAppDispatch();
 
   const handleKeyCheck = (e: any) => {
-    if (e.key == 'Enter') {
-        handleCheckLoad();
+    if (e.key == "Enter") {
+      handleCheckLoad();
     }
-}
+  };
 
-  const handleSearchTermsChange = (e: any) => {
-    set_search_terms_state(e.target.value);
-    factor_ref.current.search_terms = e.target.value;
+  const handleSearchKeywordsChange = (e: any) => {
+    set_search_keywords_state(e.target.value);
+    factor_ref.current.search_keywords = e.target.value;
   };
 
   const handleSearchTagsChange = (val: any) => {
@@ -36,14 +36,21 @@ function CheckBroad(props: { tags: string[] }) {
     dispatch(
       fetchCheckedDocsListThunk({
         search_tags: factor_ref.current.search_tags,
-        search_terms: factor_ref.current.search_terms,
+        search_keywords: factor_ref.current.search_keywords,
       })
     );
   };
 
   return (
     <div className="tw-my-6">
-      <Form.Control type="search" className="rounded-pill shadow-none" placeholder="Input Keywords Here..." value={search_terms_state} onChange={handleSearchTermsChange} onKeyUp={handleKeyCheck} />
+      <Form.Control
+        type="search"
+        className="rounded-pill shadow-none"
+        placeholder="Input Keywords Here..."
+        value={search_keywords_state}
+        onChange={handleSearchKeywordsChange}
+        onKeyUp={handleKeyCheck}
+      />
       <div className="tw-flex tw-justify-center tw-my-4">
         <Button as={"div"} className="tw-rounded-full tw-shadow-none tw-px-6 tw-font-bold" onClick={handleCheckLoad}>
           {"Check"}

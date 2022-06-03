@@ -50,6 +50,8 @@ function Home(props: {
   };
 
   const handleLoadMore = async () => {
+    console.log(docs_list[docs_list.length - 1].postDate);
+    
     const loaded_data = (await fetchHomeDocsListLoadMore(docs_list[docs_list.length - 1].postDate)).data;
     if (loaded_data.length !== 0) {
       set_docs_list([...docs_list, ...loaded_data]);
@@ -133,6 +135,7 @@ function Home(props: {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  console.log((await fetchFirstLoadDocsListData()).data)
   return {
     props: {
       fetchedAboutmeData: (await fetchAboutmeData()).data,

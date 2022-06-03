@@ -6,10 +6,7 @@ import { useState } from "react";
 import "md-editor-rt/lib/style.css";
 
 export default function DocEditor() {
-  const [modal_show, set_modal_show] = useState({
-    show: false,
-    text: "",
-  });
+  const [modal_show, set_modal_show] = useState({ show: false, text: "" });
 
   const [model_text, set_model_text] = useState<string>("");
   const [title, set_title] = useState<string>("");
@@ -27,17 +24,7 @@ export default function DocEditor() {
     manual: true,
     onSuccess: (res) => {
       set_modal_show({ show: true, text: "提交成功" });
-      set_title("");
-      set_author("");
-      set_citation("");
-      set_declaration("");
-      set_imgURL("");
-      set_model_text("");
-      set_originFrom("");
-      set_originURL("");
-      set_subtitle("");
-      set_tags("");
-      set_allowShare(false);
+      cleanEdit();
       set_model_text(res.data);
     },
     onError: () => {},
@@ -62,8 +49,6 @@ export default function DocEditor() {
       })
     );
   };
-
-  const readLocal = () => {};
 
   const cleanEdit = () => {
     set_title("");
@@ -223,7 +208,7 @@ export default function DocEditor() {
               className="mx-1"
               onClick={async () =>
                 postDoc(
-                  "http://127.0.0.3:8080/doc-server/post-doc.php",
+                  "http://blog.dragonbook.cn/server/doc-server/post-doc.php",
                   JSON.stringify({
                     title: title.trim() === "" ? null : title,
                     subtitle: subtitle.trim() === "" ? null : subtitle,

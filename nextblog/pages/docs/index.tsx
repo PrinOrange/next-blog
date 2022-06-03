@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { DocsCheckerState, fetchCheckedDocsListThunk, selectCheckerState } from "../../redux/DocsCheckerSlice";
 import { useEffect, useRef, useState } from "react";
 import { MetaSEOModel } from "../../model/SEOModel";
+import {ImSad} from 'react-icons/im'
 
 function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: PinnedListModel; fetchedDocsSEOData: MetaSEOModel }) {
   const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
     dispatch(
       fetchCheckedDocsListThunk({
         search_tags: checker_state.factor.search_tags,
-        search_terms: checker_state.factor.search_terms,
+        search_keywords: checker_state.factor.search_keywords,
         outset: checker_state.list[checker_state.list.length - 1].postDate,
       })
     );
@@ -74,8 +75,13 @@ function Docs(props: { fetchedFilterTagsData: string[]; fetchedPinnedListData: P
           </div>
           <div className={classNames("tw-border-l", "tw-border-r", "md:tw-col-span-2", "lg:tw-col-span-2")}>
             <DocsList list={checker_state.list} />
-            <div className=" tw-my-4 tw-flex tw-justify-center">
-              <Button className="shadow-none" as="div" onClick={handleLoadMore}>
+            <div className=" tw-my-4 tw-text-center">
+              <div className="tw-flex tw-justify-center tw-flex-col tw-align-middle tw-my-8" hidden={checker_state.list.length !== 0}>
+                <ImSad className="tw-mx-auto tw-my-4" size="5em" />
+                <p className="tw-text-lg tw-font-bold">{"抱歉，你要搜索的关键词没有找到，换个词试试吧！"}</p>
+                <p className="tw-text-lg tw-font-bold">{"Sorry, no content related to the keyword you were searching for was found"}</p>
+              </div>
+              <Button className="shadow-none" as="div" onClick={handleLoadMore} hidden={checker_state.list.length === 0}>
                 {"加载更多"}
               </Button>
             </div>

@@ -1,10 +1,9 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DocsListModel } from "../model/DocsListModel";
 import { fetchCheckedDocsList, fetchFirstLoadDocsListData } from "../api/ajax";
 
 export interface DocsCheckerFactor {
-  search_terms?: string;
+  search_keywords?: string;
   search_tags?: string;
   outset?: string;
 }
@@ -18,7 +17,7 @@ export const InitialDocsCheckerState: DocsCheckerState = {
   list: (await fetchFirstLoadDocsListData()).data ?? [],
   factor: {
     search_tags: "",
-    search_terms: "",
+    search_keywords: "",
     outset: "",
   },
 };

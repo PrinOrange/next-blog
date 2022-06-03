@@ -59,12 +59,12 @@ export const fetchFirstLoadDocsListData = (): AxiosPromise<DocsListModel> => {
   });
 };
 
-export const fetchHomeDocsListLoadMore = (load_outset: string): AxiosPromise<DocsListModel> => {
+export const fetchHomeDocsListLoadMore = (outset: string): AxiosPromise<DocsListModel> => {
   return axios({
     method: "GET",
     url: SSR_AJAX_API.v1.DocsListLoadMoreData,
     params: {
-      load_outset: load_outset,
+      outset: outset,
     },
     responseType: "json",
   });
