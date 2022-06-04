@@ -13,14 +13,14 @@ export default function NextContent(props: { list: NextContentModel }) {
         </div>
         <ListGroup as="ol" className="tw-my-3 tw-px-0" numbered variant="flush">
           {props.list.map((item, index) => (
-            <ListGroup.Item as="div" key={`pinnedList-${item.id}-${index}`} className="tw-flex tw-justify-between tw-align-middle tw-cursor-pointer" action>
-              <a href={`/docs/${item.id}`} className="hover:tw-text-inherit" target="_blank" rel="noreferrer">
+            <a href={`/docs/${item.id}`} key={`pinnedList-${item.id}-${index}`} className="hover:tw-text-inherit" target="_blank" rel="noreferrer">
+              <ListGroup.Item as="div" className="tw-flex tw-justify-between tw-align-middle tw-cursor-pointer" action>
                 <div className="tw-ml-2 tw-mr-auto">
                   <div className="tw-font-bold">{item.title}</div>
                   {item.subtitle}
                 </div>
-              </a>
-            </ListGroup.Item>
+              </ListGroup.Item>
+            </a>
           ))}
         </ListGroup>
       </Card.Body>
