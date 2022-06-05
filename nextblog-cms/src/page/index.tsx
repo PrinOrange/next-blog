@@ -17,9 +17,6 @@ export default function PanelIndex() {
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>
-                <div>
-                  <Button><FaDoorOpen/>Logout</Button>
-                </div>
               </Card.Body>
             </Card>
           </Col>

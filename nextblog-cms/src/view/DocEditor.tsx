@@ -27,7 +27,9 @@ export default function DocEditor() {
       cleanEdit();
       set_model_text(res.data);
     },
-    onError: () => {},
+    onError: (err) => {
+      set_modal_show({ show: true, text: `${err.message}\n` });
+    },
     onBefore: () => {},
   });
 
@@ -201,14 +203,11 @@ export default function DocEditor() {
             }}
           />
           <div>
-            <Button className="mx-5" variant="danger" onClick={cleanEdit}>
-              {"放弃"}
-            </Button>
             <Button
               className="mx-1"
               onClick={async () =>
                 postDoc(
-                  "http://blog.dragonbook.cn/server/doc-server/post-doc.php",
+                  "http://127.0.0.3:8080/doc-server/post-doc.php",
                   JSON.stringify({
                     title: title.trim() === "" ? null : title,
                     subtitle: subtitle.trim() === "" ? null : subtitle,
@@ -222,14 +221,12 @@ export default function DocEditor() {
                     text: model_text.trim() === "" ? null : model_text,
                     allowShare: allowShare ? "1" : "0",
                     postDate: getPostDate(),
+                    token:"zytengQQ123",
                   })
                 )
               }
             >
               {"发表"}
-            </Button>
-            <Button className="mx-1" variant="secondary" onClick={saveLocal}>
-              {"本地保存"}
             </Button>
           </div>
         </div>
