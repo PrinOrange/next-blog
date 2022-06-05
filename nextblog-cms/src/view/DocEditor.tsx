@@ -207,7 +207,7 @@ export default function DocEditor() {
               className="mx-1"
               onClick={async () =>
                 postDoc(
-                  "http://127.0.0.3:8080/doc-server/post-doc.php",
+                  "http://blog.dragonbook.cn/server/doc-server/post-doc.php",
                   JSON.stringify({
                     title: title.trim() === "" ? null : title,
                     subtitle: subtitle.trim() === "" ? null : subtitle,
