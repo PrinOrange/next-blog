@@ -1,9 +1,9 @@
+import { useRequest } from "ahooks";
 import axios from "axios";
 import Editor from "md-editor-rt";
-import { Button, Form, InputGroup, Modal } from "react-bootstrap";
-import { useRequest } from "ahooks";
-import { useState } from "react";
 import "md-editor-rt/lib/style.css";
+import { useState } from "react";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 
 export default function DocEditor() {
   const [modal_show, set_modal_show] = useState({ show: false, text: "" });
@@ -32,25 +32,6 @@ export default function DocEditor() {
     },
     onBefore: () => {},
   });
-
-  const saveLocal = () => {
-    window.localStorage.setItem(
-      "edit_state",
-      JSON.stringify({
-        title: title,
-        subtitle: subtitle,
-        citation: citation,
-        imgURL: imgURL,
-        tags: tags,
-        declaration: declaration,
-        originFrom: originFrom,
-        author: author,
-        originURL: originURL,
-        text: model_text,
-        allowShare: allowShare,
-      })
-    );
-  };
 
   const cleanEdit = () => {
     set_title("");

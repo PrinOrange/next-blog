@@ -1,5 +1,5 @@
-import { Button, Card, Col, Container, Nav, Row, Tab } from "react-bootstrap";
-import { FaPen,FaDoorOpen } from "react-icons/fa";
+import { Card, Col, Container, Nav, Row, Tab } from "react-bootstrap";
+import { FaPen } from "react-icons/fa";
 import DocEditor from "../view/DocEditor";
 export default function PanelIndex() {
   return (
